@@ -1,5 +1,15 @@
 dist/
+logs/
+npm-debug.log
+yarn-error.log
+node_modules/
+package-lock.json
+yarn.lock
+coverage/
 .temp/
 .rn_temp/
-node_modules/
 .DS_Store
+.idea/
+run/
+*.sw*
+*.un~
