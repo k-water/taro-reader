@@ -1,0 +1,78 @@
+.index-wrap {
+  font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+  .book-recommend {
+    margin-top: 55PX;
+  }
+  .swiper-container {
+    width: 100%;
+    height: 220PX;
+    .swiper-pic {
+      width: 100%;
+      height: 220PX;
+    }
+  }
+
+  .layout-list {
+    width: 100%;
+    margin-top: 30PX;
+    .layout-header {
+      width: 100%;
+      height: 28PX;
+      padding: 5PX;
+      .header-text {
+        padding-left: 10PX;
+        position: relative;
+        height: 100%;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 6%;
+          left: 0;
+          width: 2PX;
+          height: 100%;
+          color: #6190E8;
+          border-left: 2PX solid #6190E8;
+        }
+      }
+    }
+    .layout-container {
+      width: 100%;
+      height: 160PX;
+      padding: 5PX;
+      display: flex;
+      .layout-image {
+        width: 100PX;
+        height: 160PX;
+      }
+      .layout-text {
+        padding: 0 15PX;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+      }
+      .layout-title {
+        color: #000;
+        font-size: 18PX;
+        font-weight: 600;
+        width: calc(100% - 10PX);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .layout-desc {
+        width: calc(100% - 10PX);
+        font-size: 16PX;
+        // ...
+        text-align: justify-all;
+        color: grey;
+        padding-top: 10PX;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}
