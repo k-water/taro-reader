@@ -24,7 +24,8 @@ export default class Index extends Component {
     this.state = {
       searchVal: '',
       swpierData: [],
-      bookList: []
+      bookList: [],
+      recommendBooks: []
     }
 
     this.onChange = this.onChange.bind(this)
@@ -35,6 +36,7 @@ export default class Index extends Component {
   componentDidMount () {
     this.getRecommendInfo()
     this.getBookList()
+    this.getRecommendList()
   }
 
   componentWillUnmount () { }
@@ -77,8 +79,22 @@ export default class Index extends Component {
     })
   }
 
+  getRecommendList () {
+    request({
+      url: '/rapi/recommendPage/node/books/all/57832d5ebe9f970e3dc4270d'
+    })
+    .then(res => {
+      this.setState({
+        recommendBooks: res.data
+      });
+    })
+    .catch(err => {
+      throw(err)
+    })
+  }
+
   render () {
-    const { swpierData: { spread }, bookList } = this.state
+    const { swpierData: { spread }, bookList, recommendBooks } = this.state
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com'
     return (
       <View className='index-wrap'>
@@ -133,6 +149,33 @@ export default class Index extends Component {
                   </View>
                   <View className='layout-desc'>
                     {item.desc}
+                  </View>
+                </View>
+              </View>
+            ))
+          }
+        </View>
+
+        <View className='layout-list'>
+          <View className='layout-header'>
+            <Text className='header-text'>精选书籍</Text>
+          </View>
+          {
+            recommendBooks && recommendBooks.map(item => (
+              <View className='layout-container' key={item._id}>
+                <View className='layout-image'>
+                  <Image
+                    style={{width: '100PX', height: '160PX'}}
+                    mode='scaleToFill'
+                    src={`${item.book.cover}`}
+                  />
+                </View>
+                <View className='layout-text'>
+                  <View className='layout-title'>
+                    {item.book.title}
+                  </View>
+                  <View className='layout-desc'>
+                    {item.book.shortIntro}
                   </View>
                 </View>
               </View>
