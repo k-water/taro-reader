@@ -1,0 +1,28 @@
+.book-statistic {
+  width: 100%;
+  .statistic-wrap {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    margin: 5PX 20PX;
+    .statistic-detail {
+      width: calc(50% - 32PX);
+      display: flex;
+      border: 1PX solid whitesmoke;
+      margin-bottom: 10PX;
+      cursor: pointer;
+      .statistic-name {
+        text-align: center;
+        width: calc(100% - 100PX);
+        line-height: 120PX;
+        font-size: 16PX;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }
+      .statistic-img {
+      }
+      &:nth-child(2n) {
+        margin-left: 20PX;
+      }
+    }
+  }
+}

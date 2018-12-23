@@ -7,8 +7,8 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index',
       'pages/class/index',
+      'pages/index/index',
       'pages/book/index',
       'pages/person/index'
     ],
