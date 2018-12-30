@@ -8,17 +8,22 @@
     .statistic-detail {
       width: calc(50% - 32PX);
       display: flex;
-      border: 1PX solid whitesmoke;
+      background-color: rgba(241, 241, 241, 0.925);
+      border-radius: 5%;
       margin-bottom: 10PX;
       cursor: pointer;
       .statistic-name {
         text-align: center;
-        width: calc(100% - 100PX);
-        line-height: 120PX;
+        width: calc(100% - 80PX);
+        line-height: 80PX;
+        padding: 10PX 0;
         font-size: 16PX;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       }
       .statistic-img {
+        width: 80PX;
+        height: 80PX;
+        padding-top: 10PX;
       }
       &:nth-child(2n) {
         margin-left: 20PX;

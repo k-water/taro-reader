@@ -56,8 +56,8 @@ export default class Index extends Component {
                 </View>
                 <View className='statistic-img'>
                   <Image
-                    mode='scaleToFill'
-                    style={{width: '100PX', height: '120PX'}}
+                    mode='aspectFill'
+                    style={{width: '60PX', height: '80PX'}}
                     src={`${ImageBaseUrl}${item.bookCover[0]}`}
                   />
                 </View>
