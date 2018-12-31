@@ -37,15 +37,14 @@
     }
     .layout-container {
       width: 100%;
-      height: 160PX;
+      height: 140PX;
       padding: 5PX;
       display: flex;
       .layout-image {
         width: 100PX;
-        height: 160PX;
       }
       .layout-text {
-        padding: 0 15PX;
+        padding: 0 0 0 5PX;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -53,16 +52,17 @@
       }
       .layout-title {
         color: #000;
-        font-size: 18PX;
+        font-size: 16PX;
         font-weight: 600;
         width: calc(100% - 10PX);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding-top: 10PX;
       }
       .layout-desc {
         width: calc(100% - 10PX);
-        font-size: 16PX;
+        font-size: 14PX;
         // ...
         text-align: justify-all;
         color: grey;
@@ -70,7 +70,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 5;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
       }
     }

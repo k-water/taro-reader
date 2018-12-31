@@ -15,7 +15,7 @@ import './index.scss'
 export default class Index extends Component {
 
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '书城'
   }
 
   constructor () {
@@ -138,7 +138,7 @@ export default class Index extends Component {
               <View className='layout-container' key={item._id}>
                 <View className='layout-image'>
                   <Image
-                    style={{width: '100PX', height: '160PX'}}
+                    style={{width: '80PX', height: '120PX', padding: '10PX'}}
                     mode='scaleToFill'
                     src={`${ImageBaseUrl}${item.cover}`}
                   />
@@ -165,8 +165,8 @@ export default class Index extends Component {
               <View className='layout-container' key={item._id}>
                 <View className='layout-image'>
                   <Image
-                    style={{width: '100PX', height: '160PX'}}
-                    mode='scaleToFill'
+                    style={{width: '80PX', height: '120PX', padding: '10PX'}}
+                    mode='aspectFill'
                     src={`${item.book.cover}`}
                   />
                 </View>
