@@ -41,7 +41,11 @@ export default class Index extends Component {
       throw(err)
     })
   }
-
+  enterLv2 (tag) {
+    Taro.navigateTo({
+      url: `detail/detail?tag=${tag}`
+    })
+  }
   render () {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com'
     const { statistics } = this.state
@@ -50,7 +54,10 @@ export default class Index extends Component {
         <View className='statistic-wrap'>
           {
             statistics && statistics.map(item => (
-              <View className='statistic-detail' key={item.name}>
+              <View className='statistic-detail'
+                key={item.name}
+                onClick={this.enterLv2.bind(this, item.name)}
+              >
                 <View className='statistic-name'>
                   {item.name}
                 </View>

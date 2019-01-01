@@ -7,10 +7,13 @@ class App extends Component {
 
   config = {
     pages: [
+      // 'pages/class/detail/detail',
+
       'pages/class/index',
       'pages/index/index',
       'pages/book/index',
-      'pages/person/index'
+      'pages/person/index',
+      'pages/class/detail/detail',
     ],
     window: {
       backgroundTextStyle: 'light',
