@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "taro-reader",
   "description": "wxapp reader for taro",
-  "appid": "touristappid",
+  "appid": "wx809a2feb6f9f5d3f",
   "setting": {
     "urlCheck": true,
     "es6": false,
