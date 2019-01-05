@@ -26,12 +26,12 @@ export default class Detail extends Component {
 
   getStatisticsLv2 () {
     let currentTags = null
-    let lv1Tag = this.$router.params.tag || '玄幻'
+    let { tag, type } = this.$router.params
     request({
       url: '/rapi/cats/lv2'
     })
     .then(res => {
-      currentTags = res.male.filter(item => item.major === lv1Tag)
+      currentTags = res[type].filter(item => item.major === tag)
       console.log(currentTags)
       this.setState({
         maleLv2: currentTags
@@ -46,13 +46,13 @@ export default class Detail extends Component {
 
   getLv2Book (obj) {
     let promiseQueue = []
-    let lv1Tag = this.$router.params.tag || '玄幻'
+    let { tag } = this.$router.params
     obj[0].mins.map(item => {
       promiseQueue.push(new Promise((resolve, reject) => {
         request({
           url: '/rapi/book/by-categorie',
           data: {
-            major: lv1Tag,
+            major: tag,
             minor: item
           }
         })
