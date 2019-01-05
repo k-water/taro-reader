@@ -1,91 +1,109 @@
-import Taro, { Component } from '@tarojs/taro'
-import {
-  View,
-  Image,
-  Text
-} from '@tarojs/components'
-import request from '../../../utils'
-import './detail.scss'
+import Taro, { Component } from '@tarojs/taro';
+import { View, Image, Text } from '@tarojs/components';
+import request from '../../../utils';
+import './detail.scss';
 
 export default class Detail extends Component {
-  config = {
+  config = {};
 
-  }
-
-  constructor () {
-    super(...arguments)
+  constructor() {
+    super(...arguments);
 
     this.state = {
       currentClassify: [],
       currentIndex: 0,
       bookList: []
-    }
+    };
   }
 
-  componentDidMount () {
-    this.getLv2Type()
-    this.getDetailBooks()
+  componentDidMount() {
+    this.getLv2Type();
+    const { tag, type } = this.$router.params;
+    let classify = null;
+    type === 'press' ? (classify = 'over') : (classify = 'hot');
+    this.getDetailBooks({
+      type: classify,
+      major: tag
+    });
   }
 
   getLv2Type = () => {
-    let { tag, type } = this.$router.params
-    let tempClassify = []
+    let { tag, type } = this.$router.params;
+    let tempClassify = [];
     request({
       url: '/rapi/cats/lv2'
     })
-    .then(res => {
-      tempClassify = res[type].filter(item => item.major === tag)[0]
-      tempClassify.mins.unshift('全部')
-      this.setState({
-        currentClassify: tempClassify
+      .then(res => {
+        tempClassify = res[type].filter(item => item.major === tag)[0];
+        tempClassify.mins.unshift('全部');
+        this.setState({
+          currentClassify: tempClassify
+        });
       })
-    })
-    .catch(err => {
-      throw(err)
-    })
-  }
+      .catch(err => {
+        throw err;
+      });
+  };
 
-  getActiveItem (val, minor) {
+  getActiveItem(val, minor) {
     this.setState({
       currentIndex: val
-    })
-    minor === '全部' ? minor = '' : minor = minor
-    this.getDetailBooks(minor)
+    });
+    const { tag, type } = this.$router.params;
+    minor === '全部' ? (minor = '') : (minor = minor);
+    let classify = null;
+    type === 'press' ? (classify = 'over') : (classify = 'hot');
+    const data = {
+      type: classify,
+      major: tag,
+      minor,
+      start: 0,
+      limit: 20
+    };
+    this.getDetailBooks(data);
   }
 
-  getDetailBooks = (minor = '', limit = 20) => {
-    let { tag } = this.$router.params
+  getDetailBooks = ({
+    type = 'hot',
+    major,
+    minor = '',
+    start = 0,
+    limit = 20
+  }) => {
     request({
       url: '/rapi/book/by-categorie',
       data: {
-        major: tag,
+        type,
+        major,
         minor,
+        start,
         limit
       }
     })
-    .then(res => {
-      this.setState({
-        bookList: res.books
+      .then(res => {
+        this.setState({
+          bookList: res.books
+        });
       })
-    })
-    .catch(err => {
-      throw(err)
-    })
-  }
+      .catch(err => {
+        throw err;
+      });
+  };
 
-  render () {
-    const { currentClassify: { mins }, currentIndex, bookList } = this.state
-    const ImageBaseUrl = 'http://statics.zhuishushenqi.com'
+  render() {
+    const {
+      currentClassify: { mins },
+      currentIndex,
+      bookList
+    } = this.state;
+    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     return (
       <View className='detail-wrap'>
         <View className='detail-header'>
           <View className='detail-type'>
-            {
-              mins && mins.map((item, index) => (
-                <View
-                  key={item}
-                  className='detail-text'
-                >
+            {mins &&
+              mins.map((item, index) => (
+                <View key={item} className='detail-text'>
                   <Text
                     onClick={this.getActiveItem.bind(this, index, item)}
                     style={index === currentIndex ? 'color: #6190E8;' : ''}
@@ -93,13 +111,12 @@ export default class Detail extends Component {
                     {item}
                   </Text>
                 </View>
-              ))
-            }
+              ))}
           </View>
         </View>
         <View className='detail-container'>
-          {
-            bookList && bookList.map(item => (
+          {bookList &&
+            bookList.map(item => (
               <View className='detail-book' key={item._id}>
                 <View className='detail-cover'>
                   <Image
@@ -108,21 +125,14 @@ export default class Detail extends Component {
                   />
                 </View>
                 <View className='detail-info'>
-                  <Text className='detail-title'>
-                    {item.title}
-                  </Text>
-                  <Text className='detail-author'>
-                    {item.author}
-                  </Text>
-                  <Text className='detail-desc'>
-                    {item.shortIntro}
-                  </Text>
+                  <Text className='detail-title'>{item.title}</Text>
+                  <Text className='detail-author'>{item.author}</Text>
+                  <Text className='detail-desc'>{item.shortIntro}</Text>
                 </View>
               </View>
-            ))
-          }
+            ))}
         </View>
       </View>
-    )
+    );
   }
 }
