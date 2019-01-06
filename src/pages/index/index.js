@@ -133,7 +133,7 @@ export default class Index extends Component {
                         height: '120PX',
                         padding: '10PX'
                       }}
-                      mode='scaleToFill'
+                      mode='aspectFill'
                       src={`${ImageBaseUrl}${item.cover}`}
                     />
                   </View>

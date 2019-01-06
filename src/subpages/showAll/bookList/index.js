@@ -1,12 +1,36 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { View, Image } from '@tarojs/components';
 import { AtTag } from 'taro-ui';
 import request from '../../../utils';
 import './index.scss';
 
 const tagLv1 = ['本周最热', '最新发布', '最多收藏'];
-const tagLv2 = ['全部', '男生', '女生', '都市'];
-export default class bookList extends Component {
+const tagLv2 = ['全部', '言情', '历史', '都市'];
+
+const lv1Params = {
+  本周最热: {
+    duration: 'last-seven-days',
+    sort: 'collectorCount'
+  },
+  最新发布: {
+    duration: 'all',
+    sort: 'created'
+  },
+  最多收藏: {
+    duration: 'all',
+    sort: 'collectorCount'
+  }
+};
+
+let data = {
+  duration: 'last-seven-days',
+  sort: 'collectorCount',
+  tag: '',
+  gender: '',
+  start: 0,
+  limit: 20
+};
+export default class BookListAll extends Component {
   config = {
     navigationBarTitleText: '主题书单'
   };
@@ -18,12 +42,14 @@ export default class bookList extends Component {
       currentLv2Tag: 0,
       currentDetailTagName: null,
       isShow: false,
-      bookTags: []
+      bookTags: [],
+      bookList: []
     };
   }
 
   componentDidMount() {
     this.getBookTags();
+    this.getBookList(data);
   }
 
   getBookTags = () => {
@@ -40,16 +66,48 @@ export default class bookList extends Component {
       });
   };
 
+  getBookList = params => {
+    request({
+      url: '/rapi/book-list',
+      data: params
+    })
+      .then(res => {
+        this.setState({
+          bookList: res.bookLists
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+
   handleLv1Tag(index) {
     this.setState({
       currentLv1Tag: index
     });
+    data = Object.assign(data, lv1Params[tagLv1[index]]);
+
+    this.getBookList(data);
   }
 
   handleLv2Tag(index) {
     this.setState({
       currentLv2Tag: index
     });
+    let temp = null;
+    if (tagLv2[index] === '全部') {
+      temp = ''
+      this.setState({
+        currentDetailTagName: ''
+      })
+    } else {
+      temp = tagLv2[index]
+    }
+    data = Object.assign(data, {
+      tag: temp
+    });
+
+    this.getBookList(data);
   }
 
   handleDetailTag(val) {
@@ -59,6 +117,10 @@ export default class bookList extends Component {
     });
     tagLv2.splice(1, 1, val);
     this.handleLv2Tag(1);
+    data = Object.assign(data, {
+      tag: val
+    });
+    this.getBookList(data);
   }
 
   showFilter = () => {
@@ -72,8 +134,10 @@ export default class bookList extends Component {
       currentLv2Tag,
       isShow,
       bookTags,
-      currentDetailTagName
+      currentDetailTagName,
+      bookList
     } = this.state;
+    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     return (
       <View className='book-list-wrap'>
         <View className='filter-lv1'>
@@ -112,7 +176,28 @@ export default class bookList extends Component {
             筛选
           </AtTag>
         </View>
-        <View className='book-list' />
+        <View className='book-list'>
+          {!isShow && bookList &&
+            bookList.map(item => (
+              <View className='layout-container' key={item._id}>
+                <View className='layout-image'>
+                  <Image
+                    style={{
+                      width: '80PX',
+                      height: '120PX',
+                      padding: '10PX'
+                    }}
+                    mode='aspectFill'
+                    src={`${ImageBaseUrl}${item.cover}`}
+                  />
+                </View>
+                <View className='layout-text'>
+                  <View className='layout-title'>{item.title}</View>
+                  <View className='layout-desc'>{item.desc}</View>
+                </View>
+              </View>
+            ))}
+        </View>
         {isShow && (
           <View className='filter-all'>
             <View className='tag-list'>
