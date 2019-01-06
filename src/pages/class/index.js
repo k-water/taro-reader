@@ -13,7 +13,8 @@ export default class Index extends Component {
     super(...arguments);
     this.state = {
       current: 0,
-      statistics: []
+      statistics: [],
+      loading: true
     };
 
     this.changeCurrent = this.changeCurrent.bind(this);
@@ -30,13 +31,18 @@ export default class Index extends Component {
   componentDidHide() {}
 
   getBookStatictis() {
+    Taro.showLoading({
+      title: '加载中'
+    });
     request({
       url: '/rapi/cats/lv2/statistics'
     })
       .then(res => {
         this.setState({
-          statistics: res
+          statistics: res,
+          loading: false
         });
+        Taro.hideLoading();
       })
       .catch(err => {
         throw err;
@@ -54,47 +60,53 @@ export default class Index extends Component {
   }
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
-    const { statistics, current } = this.state;
+    const { statistics, current, loading } = this.state;
     const typeList = ['male', 'female', 'press'];
     let list = statistics[typeList[current]];
-    return (
-      <View className='book-statistic'>
-        <AtTabBar
-          tabList={[
-            {
-              title: '男生'
-            },
-            {
-              title: '女生'
-            },
-            {
-              title: '出版物'
-            }
-          ]}
-          color='rgb(151, 154, 156)'
-          current={current}
-          onClick={this.changeCurrent}
-        />
-        <View className='statistic-wrap'>
-          {list &&
-            list.map(item => (
-              <View
-                className='statistic-detail'
-                key={item.name}
-                onClick={this.enterLv2.bind(this, item.name, typeList[current])}
-              >
-                <View className='statistic-name'>{item.name}</View>
-                <View className='statistic-img'>
-                  <Image
-                    mode='aspectFill'
-                    style={{ width: '60PX', height: '80PX' }}
-                    src={`${ImageBaseUrl}${item.bookCover[0]}`}
-                  />
+    if (!loading) {
+      return (
+        <View className='book-statistic'>
+          <AtTabBar
+            tabList={[
+              {
+                title: '男生'
+              },
+              {
+                title: '女生'
+              },
+              {
+                title: '出版物'
+              }
+            ]}
+            color='rgb(151, 154, 156)'
+            current={current}
+            onClick={this.changeCurrent}
+          />
+          <View className='statistic-wrap'>
+            {list &&
+              list.map(item => (
+                <View
+                  className='statistic-detail'
+                  key={item.name}
+                  onClick={this.enterLv2.bind(
+                    this,
+                    item.name,
+                    typeList[current]
+                  )}
+                >
+                  <View className='statistic-name'>{item.name}</View>
+                  <View className='statistic-img'>
+                    <Image
+                      mode='aspectFill'
+                      style={{ width: '60PX', height: '80PX' }}
+                      src={`${ImageBaseUrl}${item.bookCover[0]}`}
+                    />
+                  </View>
                 </View>
-              </View>
-            ))}
+              ))}
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
   }
 }

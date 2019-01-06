@@ -4,7 +4,9 @@ import request from '../../../utils';
 import './detail.scss';
 
 export default class Detail extends Component {
-  config = {};
+  config = {
+    navigationBarTitleText: '全部'
+  };
 
   constructor() {
     super(...arguments);
@@ -12,7 +14,8 @@ export default class Detail extends Component {
     this.state = {
       currentClassify: [],
       currentIndex: 0,
-      bookList: []
+      bookList: [],
+      isLoading: true
     };
   }
 
@@ -45,7 +48,7 @@ export default class Detail extends Component {
       });
   };
 
-  getActiveItem(val, minor) {
+  getActiveItem = (val, minor) => {
     this.setState({
       currentIndex: val
     });
@@ -61,7 +64,7 @@ export default class Detail extends Component {
       limit: 20
     };
     this.getDetailBooks(data);
-  }
+  };
 
   getDetailBooks = ({
     type = 'hot',
@@ -70,6 +73,11 @@ export default class Detail extends Component {
     start = 0,
     limit = 20
   }) => {
+    if (minor === '') {
+      Taro.showLoading({
+        title: '加载中'
+      });
+    }
     request({
       url: '/rapi/book/by-categorie',
       data: {
@@ -82,8 +90,10 @@ export default class Detail extends Component {
     })
       .then(res => {
         this.setState({
-          bookList: res.books
+          bookList: res.books,
+          isLoading: false
         });
+        Taro.hideLoading();
       })
       .catch(err => {
         throw err;
@@ -94,7 +104,8 @@ export default class Detail extends Component {
     const {
       currentClassify: { mins },
       currentIndex,
-      bookList
+      bookList,
+      isLoading
     } = this.state;
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     return (
@@ -115,7 +126,8 @@ export default class Detail extends Component {
           </View>
         </View>
         <View className='detail-container'>
-          {bookList &&
+          {!isLoading &&
+            bookList &&
             bookList.map(item => (
               <View className='detail-book' key={item._id}>
                 <View className='detail-cover'>

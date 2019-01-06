@@ -16,7 +16,8 @@ export default class Index extends Component {
       searchVal: '',
       swpierData: [],
       bookList: [],
-      recommendBooks: []
+      recommendBooks: [],
+      loading: true
     };
 
     this.onChange = this.onChange.bind(this);
@@ -25,9 +26,7 @@ export default class Index extends Component {
   componentWillMount() {}
 
   componentDidMount() {
-    this.getRecommendInfo();
-    this.getBookList();
-    this.getRecommendList();
+    this.getData();
   }
 
   componentWillUnmount() {}
@@ -42,42 +41,30 @@ export default class Index extends Component {
     });
   }
 
-  getRecommendInfo() {
-    request({
+  getData() {
+    const getRecommendInfo = request({
       url: '/rapi/mweb/home'
-    })
-      .then(res => {
-        this.setState({
-          swpierData: res.data
-        });
-      })
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  getBookList() {
-    request({
+    });
+    const getBookList = request({
       url: '/rapi/book-list'
-    })
-      .then(res => {
-        this.setState({
-          bookList: res.bookLists.slice(0, 3)
-        });
-      })
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  getRecommendList() {
-    request({
+    });
+    const getRecommendList = request({
       url: '/rapi/recommendPage/node/books/all/57832d5ebe9f970e3dc4270d'
-    })
-      .then(res => {
+    });
+
+    Taro.showLoading({
+      title: '加载中'
+    });
+
+    Promise.all([getRecommendInfo, getBookList, getRecommendList])
+      .then(resList => {
         this.setState({
-          recommendBooks: res.data
+          swpierData: resList[0].data,
+          bookList: resList[1].bookLists.slice(0, 3),
+          recommendBooks: resList[2].data,
+          loading: false
         });
+        Taro.hideLoading();
       })
       .catch(err => {
         throw err;
@@ -88,85 +75,96 @@ export default class Index extends Component {
     const {
       swpierData: { spread },
       bookList,
-      recommendBooks
+      recommendBooks,
+      loading
     } = this.state;
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
-    return (
-      <View className='index-wrap'>
-        <AtSearchBar
-          value={this.state.searchVal}
-          fixed
-          placeholder='搜索书籍'
-          onChange={this.onChange}
-        />
-        <View className='book-recommend'>
-          <Swiper
-            className='swiper-container'
-            indicatorColor='#999'
-            indicatorActiveColor='#333'
-            circular
-            indicatorDots
-            autoplay
-          >
-            {spread &&
-              spread.map(item => (
-                <SwiperItem key={item._id}>
-                  <View className='swiper-pic'>
+    if (!loading) {
+      return (
+        <View className='index-wrap'>
+          <AtSearchBar
+            value={this.state.searchVal}
+            fixed
+            placeholder='搜索书籍'
+            onChange={this.onChange}
+          />
+          <View className='book-recommend'>
+            <Swiper
+              className='swiper-container'
+              indicatorColor='#999'
+              indicatorActiveColor='#333'
+              circular
+              indicatorDots
+              autoplay
+            >
+              {spread &&
+                spread.map(item => (
+                  <SwiperItem key={item._id}>
+                    <View className='swiper-pic'>
+                      <Image
+                        style={{ width: '100%', height: '220PX' }}
+                        mode='scaleToFill'
+                        src={item.img}
+                      />
+                    </View>
+                  </SwiperItem>
+                ))}
+            </Swiper>
+          </View>
+
+          <View className='layout-list'>
+            <View className='layout-header'>
+              <Text className='header-text'>热门书单</Text>
+            </View>
+            {bookList &&
+              bookList.map(item => (
+                <View className='layout-container' key={item._id}>
+                  <View className='layout-image'>
                     <Image
-                      style={{ width: '100%', height: '220PX' }}
+                      style={{
+                        width: '80PX',
+                        height: '120PX',
+                        padding: '10PX'
+                      }}
                       mode='scaleToFill'
-                      src={item.img}
+                      src={`${ImageBaseUrl}${item.cover}`}
                     />
                   </View>
-                </SwiperItem>
+                  <View className='layout-text'>
+                    <View className='layout-title'>{item.title}</View>
+                    <View className='layout-desc'>{item.desc}</View>
+                  </View>
+                </View>
               ))}
-          </Swiper>
-        </View>
-
-        <View className='layout-list'>
-          <View className='layout-header'>
-            <Text className='header-text'>热门书单</Text>
           </View>
-          {bookList &&
-            bookList.map(item => (
-              <View className='layout-container' key={item._id}>
-                <View className='layout-image'>
-                  <Image
-                    style={{ width: '80PX', height: '120PX', padding: '10PX' }}
-                    mode='scaleToFill'
-                    src={`${ImageBaseUrl}${item.cover}`}
-                  />
-                </View>
-                <View className='layout-text'>
-                  <View className='layout-title'>{item.title}</View>
-                  <View className='layout-desc'>{item.desc}</View>
-                </View>
-              </View>
-            ))}
-        </View>
 
-        <View className='layout-list'>
-          <View className='layout-header'>
-            <Text className='header-text'>精选书籍</Text>
+          <View className='layout-list'>
+            <View className='layout-header'>
+              <Text className='header-text'>精选书籍</Text>
+            </View>
+            {recommendBooks &&
+              recommendBooks.map(item => (
+                <View className='layout-container' key={item._id}>
+                  <View className='layout-image'>
+                    <Image
+                      style={{
+                        width: '80PX',
+                        height: '120PX',
+                        padding: '10PX'
+                      }}
+                      mode='aspectFill'
+                      src={`${item.book.cover}`}
+                    />
+                  </View>
+                  <View className='layout-text'>
+                    <View className='layout-title'>{item.book.title}</View>
+                    <View className='layout-desc'>{item.book.shortIntro}</View>
+                  </View>
+                </View>
+              ))}
           </View>
-          {recommendBooks &&
-            recommendBooks.map(item => (
-              <View className='layout-container' key={item._id}>
-                <View className='layout-image'>
-                  <Image
-                    style={{ width: '80PX', height: '120PX', padding: '10PX' }}
-                    mode='aspectFill'
-                    src={`${item.book.cover}`}
-                  />
-                </View>
-                <View className='layout-text'>
-                  <View className='layout-title'>{item.book.title}</View>
-                  <View className='layout-desc'>{item.book.shortIntro}</View>
-                </View>
-              </View>
-            ))}
         </View>
-      </View>
-    );
+      );
+    }
   }
 }
