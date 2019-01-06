@@ -16,8 +16,6 @@ export default class Index extends Component {
       statistics: [],
       loading: true
     };
-
-    this.changeCurrent = this.changeCurrent.bind(this);
   }
 
   componentDidMount() {
@@ -50,10 +48,10 @@ export default class Index extends Component {
   }
   enterLv2(tag, type) {
     Taro.navigateTo({
-      url: `/pages/classDetails/detail/detail?tag=${tag}&type=${type}`
+      url: `/subpages/classDetails/detail/detail?tag=${tag}&type=${type}`
     });
   }
-  changeCurrent(value) {
+  changeCurrent = (value) => {
     this.setState({
       current: value
     });
