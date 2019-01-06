@@ -16,23 +16,32 @@
     width: 100%;
     margin-top: 30PX;
     .layout-header {
-      width: 100%;
       height: 28PX;
       padding: 5PX;
+      display: flex;
+      justify-content: space-between;
       .header-text {
         padding-left: 10PX;
         position: relative;
         height: 100%;
+        font-size: 19PX;
         &::before {
           content: '';
           position: absolute;
           top: 6%;
           left: 0;
           width: 2PX;
-          height: 100%;
+          height: 90%;
           color: #6190E8;
           border-left: 2PX solid #6190E8;
         }
+      }
+      .view-more {
+        padding-right: 10PX;
+        padding-top: 4PX;
+        font-size: 15PX;
+        cursor: pointer;
+        color: #6190E8;
       }
     }
     .layout-container {
@@ -44,7 +53,7 @@
         width: 100PX;
       }
       .layout-text {
-        padding: 0 0 0 5PX;
+        padding: 0 10PX 0 5PX;
         flex: 1;
         display: flex;
         flex-direction: column;

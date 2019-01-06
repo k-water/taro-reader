@@ -1,0 +1,63 @@
+.detail-wrap {
+  width: 100%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  .detail-header {
+    .detail-type {
+      display: flex;
+      flex-wrap: wrap;
+      .detail-text {
+        width: 33.3%;
+        text-align: center;
+        color: rgb(151, 154, 156);
+        font-size: 14PX;
+        margin: 8PX 0;
+        line-height: 1;
+        Text {
+          width: 100%;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .detail-container {
+    width: 100%;
+    .detail-book {
+      display: flex;
+      width: 100%;
+      padding: 10PX;
+      cursor: pointer;
+      .detail-cover {
+        width: 20%;
+        Image {
+          max-width: 100%;
+          height: 110PX;
+        }
+      }
+      .detail-info {
+        width: calc(100% - 20% - 30PX);
+        display: flex;
+        flex-direction: column;
+        padding-left: 10PX;
+      }
+      .detail-title {
+        padding: 3PX 0;
+        font-size: 15PX;
+      }
+      .detail-author {
+        padding: 3PX 0;
+        font-size: 14PX;
+        color: rgb(82, 85, 88)
+      }
+      .detail-desc {
+        font-size: 12PX;
+        color: rgb(157, 160, 163);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}

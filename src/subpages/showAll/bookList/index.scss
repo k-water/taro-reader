@@ -1,0 +1,38 @@
+.book-list-wrap {
+  width: 100%;
+  position: relative;
+  .filter-lv1,
+  .filter-lv2 {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10PX 0;
+    border-bottom: 1px solid rgb(218, 216, 216);
+  }
+  .filter-all {
+    position: absolute;
+    z-index: 10;
+    top: 102PX;
+    background: #ffffff;
+  }
+  .tag-list {
+    margin: 15PX;
+    .tag-container {
+      .tag-title {
+        font-size: 16PX;
+        color: rgb(166, 168, 168);
+        margin-bottom: 10PX;
+      }
+      .tag-name {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: first baseline;
+        View {
+          margin-right: 5PX;
+        }
+      }
+    }
+  }
+}

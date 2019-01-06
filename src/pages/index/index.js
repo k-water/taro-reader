@@ -71,6 +71,12 @@ export default class Index extends Component {
       });
   }
 
+  showMore = () => {
+    Taro.navigateTo({
+      url: `/subpages/showAll/bookList/index`
+    })
+  }
+
   render() {
     const {
       swpierData: { spread },
@@ -115,6 +121,7 @@ export default class Index extends Component {
           <View className='layout-list'>
             <View className='layout-header'>
               <Text className='header-text'>热门书单</Text>
+              <Text className='view-more' onClick={this.showMore}>查看更多</Text>
             </View>
             {bookList &&
               bookList.map(item => (
