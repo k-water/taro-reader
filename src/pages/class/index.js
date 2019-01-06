@@ -48,7 +48,7 @@ export default class Index extends Component {
   }
   enterLv2(tag, type) {
     Taro.navigateTo({
-      url: `/subpages/classDetails/detail/detail?tag=${tag}&type=${type}`
+      url: `/subpages/details/classifyDetail/index?tag=${tag}&type=${type}`
     });
   }
   changeCurrent = (value) => {
