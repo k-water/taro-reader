@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 import { AtSearchBar, Swiper, SwiperItem } from 'taro-ui';
+import List from '../../components/list/list'
 import request from '../../utils';
 import './index.scss';
 
@@ -84,7 +85,6 @@ export default class Index extends Component {
       recommendBooks,
       loading
     } = this.state;
-    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     if (!loading) {
       return (
         <View className='index-wrap'>
@@ -125,23 +125,7 @@ export default class Index extends Component {
             </View>
             {bookList &&
               bookList.map(item => (
-                <View className='layout-container' key={item._id}>
-                  <View className='layout-image'>
-                    <Image
-                      style={{
-                        width: '80PX',
-                        height: '120PX',
-                        padding: '10PX'
-                      }}
-                      mode='aspectFill'
-                      src={`${ImageBaseUrl}${item.cover}`}
-                    />
-                  </View>
-                  <View className='layout-text'>
-                    <View className='layout-title'>{item.title}</View>
-                    <View className='layout-desc'>{item.desc}</View>
-                  </View>
-                </View>
+                <List key={item.id} data={item} />
               ))}
           </View>
 
@@ -151,23 +135,7 @@ export default class Index extends Component {
             </View>
             {recommendBooks &&
               recommendBooks.map(item => (
-                <View className='layout-container' key={item._id}>
-                  <View className='layout-image'>
-                    <Image
-                      style={{
-                        width: '80PX',
-                        height: '120PX',
-                        padding: '10PX'
-                      }}
-                      mode='aspectFill'
-                      src={`${item.book.cover}`}
-                    />
-                  </View>
-                  <View className='layout-text'>
-                    <View className='layout-title'>{item.book.title}</View>
-                    <View className='layout-desc'>{item.book.shortIntro}</View>
-                  </View>
-                </View>
+                <List key={item.id} data={item} />
               ))}
           </View>
         </View>

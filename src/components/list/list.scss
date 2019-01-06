@@ -1,0 +1,44 @@
+.list-container {
+  width: 100%;
+  height: 140PX;
+  padding: 5PX;
+  display: flex;
+  .list-image {
+    width: 100PX;
+    Image {
+      width: 80PX;
+      height: 120PX;
+      padding: 10PX;
+    }
+  }
+  .list-text {
+    padding: 0 10PX 0 5PX;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+  }
+  .list-title {
+    color: #000;
+    font-size: 16PX;
+    font-weight: 600;
+    width: calc(100% - 10PX);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-top: 10PX;
+  }
+  .list-desc {
+    width: calc(100% - 10PX);
+    font-size: 14PX;
+    // ...
+    text-align: justify-all;
+    color: grey;
+    padding-top: 10PX;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+}

@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { AtTag } from 'taro-ui';
+import List from '../../../components/list/list';
 import request from '../../../utils';
 import './index.scss';
 
@@ -96,12 +97,12 @@ export default class BookListAll extends Component {
     });
     let temp = null;
     if (tagLv2[index] === '全部') {
-      temp = ''
+      temp = '';
       this.setState({
         currentDetailTagName: ''
-      })
+      });
     } else {
-      temp = tagLv2[index]
+      temp = tagLv2[index];
     }
     data = Object.assign(data, {
       tag: temp
@@ -137,7 +138,6 @@ export default class BookListAll extends Component {
       currentDetailTagName,
       bookList
     } = this.state;
-    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     return (
       <View className='book-list-wrap'>
         <View className='filter-lv1'>
@@ -177,26 +177,9 @@ export default class BookListAll extends Component {
           </AtTag>
         </View>
         <View className='book-list'>
-          {!isShow && bookList &&
-            bookList.map(item => (
-              <View className='layout-container' key={item._id}>
-                <View className='layout-image'>
-                  <Image
-                    style={{
-                      width: '80PX',
-                      height: '120PX',
-                      padding: '10PX'
-                    }}
-                    mode='aspectFill'
-                    src={`${ImageBaseUrl}${item.cover}`}
-                  />
-                </View>
-                <View className='layout-text'>
-                  <View className='layout-title'>{item.title}</View>
-                  <View className='layout-desc'>{item.desc}</View>
-                </View>
-              </View>
-            ))}
+          {!isShow &&
+            bookList &&
+            bookList.map(item => <List key={item._id} data={item} />)}
         </View>
         {isShow && (
           <View className='filter-all'>
