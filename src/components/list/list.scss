@@ -8,7 +8,9 @@
     Image {
       width: 80PX;
       height: 120PX;
-      padding: 10PX;
+      margin: 10PX;
+      border-radius: 2PX;
+      box-shadow: 2PX 2PX 2PX silver;
     }
   }
   .list-text {
