@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text } from '@tarojs/components';
+import { AtDivider } from 'taro-ui';
 import request from '../../../utils';
 import './index.scss';
 
@@ -126,8 +127,7 @@ export default class Detail extends Component {
           </View>
         </View>
         <View className='detail-container'>
-          {!isLoading &&
-            bookList &&
+          {!isLoading && bookList.length > 0 ? (
             bookList.map(item => (
               <View className='detail-book' key={item._id}>
                 <View className='detail-cover'>
@@ -142,7 +142,15 @@ export default class Detail extends Component {
                   <Text className='detail-desc'>{item.shortIntro}</Text>
                 </View>
               </View>
-            ))}
+            ))
+          ) : (
+            <AtDivider
+              customStyle={{width: '90%', margin: '0 auto'}}
+              content='暂无数据'
+              fontColor='#979a9c'
+              lineColor='#979a9c'
+            />
+          )}
         </View>
       </View>
     );
