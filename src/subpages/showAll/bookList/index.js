@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { AtTag } from 'taro-ui';
 import List from '../../../components/list/list';
-import request from '../../../utils';
+import { request } from '../../../utils';
 import './index.scss';
 
 const tagLv1 = ['本周最热', '最新发布', '最多收藏'];

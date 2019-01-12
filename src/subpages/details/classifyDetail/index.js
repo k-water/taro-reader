@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text } from '@tarojs/components';
 import { AtDivider } from 'taro-ui';
-import request from '../../../utils';
+import { request } from '../../../utils';
 import './index.scss';
 
 export default class Detail extends Component {

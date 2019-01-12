@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import { AtTabBar } from 'taro-ui';
-import request from '../../utils';
+import { request } from '../../utils';
 import './index.scss';
 
 export default class Index extends Component {

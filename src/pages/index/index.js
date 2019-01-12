@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 import { AtSearchBar, Swiper, SwiperItem } from 'taro-ui';
 import List from '../../components/list/list'
-import request from '../../utils';
+import { request } from '../../utils';
 import './index.scss';
 
 export default class Index extends Component {
