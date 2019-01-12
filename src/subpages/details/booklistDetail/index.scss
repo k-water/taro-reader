@@ -1,0 +1,93 @@
+.list-detail-container {
+  font-family: Arial, Helvetica, sans-serif;
+  .list-author {
+    display: flex;
+    padding: 5PX;
+    .author-avatar {
+      width: 50PX;
+    }
+    .author-info {
+      flex-grow: 1;
+      padding-left: 10PX;
+      .author-name {
+        color: rgb(40, 43 ,46);
+        font-size: 18PX;
+        margin-bottom: 5PX;
+      }
+      .updated-time {
+        color: rgb(92, 95, 96);
+        font-size: 14PX;
+      }
+    }
+  }
+
+  .list-info {
+    text-align: justify;
+    box-sizing: border-box;
+    margin: 0 10PX;
+    .list-title,
+    .list-desc {
+      margin-top: 10PX;
+    }
+    .list-title {
+      color: black;
+      font-size: 20PX;
+    }
+    .list-desc {
+      color: rgb(92, 95, 96);
+      font-size: 14PX;
+    }
+  }
+
+  .book-content {
+    margin-top: 20PX;
+  }
+  .book-detail {
+    margin: 10PX;
+  }
+  .book-intro {
+    display: flex;
+    cursor: pointer;
+    .book-cover {
+      Image {
+        width: 90PX;
+        height: 115PX;
+        border-radius: 3PX;
+        box-shadow: 1PX 1PX 1PX silver;
+      }
+    }
+    .book-info {
+      flex-grow: 1;
+      margin-left: 10PX;
+      .book-title,
+      .book-author,
+      .book-tag {
+        margin-bottom: 10PX;
+      }
+      .book-title {
+        font-size: 16PX;
+        color: rgb(34, 34, 34);
+      }
+      .book-author {
+        font-size: 13PX;
+        color: rgb(91, 94, 97);
+      }
+      .book-popular {
+        display: flex;
+        color: rgb(156, 156, 156);
+        font-size: 13PX;
+        View Text{
+          color: rgb(255, 71, 60);
+        }
+        View:first-child {
+          margin-right: 15PX;
+        }
+      }
+    }
+  }
+  .book-comment {
+    color: rgb(136, 138, 141);
+    font-size: 14PX;
+    margin: 5PX 0;
+  }
+}
