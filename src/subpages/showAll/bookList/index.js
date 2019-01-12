@@ -129,6 +129,13 @@ export default class BookListAll extends Component {
       isShow: !this.state.isShow
     });
   };
+
+  showBookList(bookListId) {
+    Taro.navigateTo({
+      url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
+    });
+  }
+
   render() {
     const {
       currentLv1Tag,
@@ -179,7 +186,13 @@ export default class BookListAll extends Component {
         <View className='book-list'>
           {!isShow &&
             bookList &&
-            bookList.map(item => <List key={item._id} data={item} />)}
+            bookList.map(item => (
+              <List
+                key={item._id}
+                data={item}
+                onShowDetail={this.showBookList.bind(this, item._id)}
+              />
+            ))}
         </View>
         {isShow && (
           <View className='filter-all'>

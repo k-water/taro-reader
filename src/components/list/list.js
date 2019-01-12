@@ -6,12 +6,15 @@ export default class List extends Component {
   constructor() {
     super(...arguments);
   }
-
+  handleNull = () => {console.log('111')}
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     const { data, styleCover } = this.props;
     return (
-      <View className='list-container' key={data._id}>
+      <View className='list-container'
+        key={data._id}
+        onClick={this.props.onShowDetail}
+      >
         <View className='list-image'>
           <Image
             style={styleCover}

@@ -20,8 +20,6 @@ export default class Index extends Component {
       recommendBooks: [],
       loading: true
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {}
@@ -36,7 +34,7 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  onChange(value) {
+  onChange = (value) => {
     this.setState({
       searchVal: value
     });
@@ -75,6 +73,12 @@ export default class Index extends Component {
   showMore = () => {
     Taro.navigateTo({
       url: `/subpages/showAll/bookList/index`
+    })
+  }
+
+  showBookList(bookListId) {
+    Taro.navigateTo({
+      url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
     })
   }
 
@@ -125,7 +129,11 @@ export default class Index extends Component {
             </View>
             {bookList &&
               bookList.map(item => (
-                <List key={item.id} data={item} />
+                <List
+                  key={item._id}
+                  data={item}
+                  onShowDetail={this.showBookList.bind(this, item._id)}
+                />
               ))}
           </View>
 

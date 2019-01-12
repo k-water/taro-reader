@@ -22,8 +22,9 @@ export default class BookListDetail extends Component {
   }
 
   getBookListData = () => {
+    const { bookListId } = this.$router.params
     request({
-      url: '/rapi/book-list/5c332bce830dee000162b2de'
+      url: `/rapi/book-list/${bookListId}`
     })
       .then(res => {
         this.setState({
