@@ -12,8 +12,8 @@
     }
   }
   .list-text {
-    padding: 0 10PX 0 5PX;
-    flex: 1;
+    padding: 10PX 10PX 10PX 3PX;
+    width: calc(100% - 110PX);
     display: flex;
     flex-direction: column;
     font-family: -apple-system-font, "Helvetica Neue", sans-serif;
@@ -22,17 +22,15 @@
     color: #000;
     font-size: 16PX;
     font-weight: 600;
-    width: calc(100% - 10PX);
+    width: calc(100% - 15PX);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-top: 10PX;
   }
   .list-desc {
-    width: calc(100% - 10PX);
+    width: calc(100% - 15PX);
     font-size: 14PX;
-    // ...
-    text-align: justify-all;
+    text-align: left;
     color: grey;
     padding-top: 10PX;
     overflow: hidden;
