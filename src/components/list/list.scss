@@ -1,45 +1,43 @@
 .list-container {
-  width: 100%;
-  height: 140PX;
-  padding: 5PX;
   display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
   cursor: pointer;
   .list-image {
-    width: 100PX;
+    box-sizing: border-box;
+    padding: 10PX 10PX 10PX 15PX;
     Image {
-      width: 80PX;
-      height: 120PX;
-      margin: 10PX;
-      border-radius: 2PX;
-      box-shadow: 2PX 2PX 2PX silver;
+      width: 90PX;
+      height: 115PX;
+      border-radius: 3PX;
+      box-shadow: 1PX 1PX 1PX silver;
     }
   }
   .list-text {
-    padding: 10PX 10PX 10PX 3PX;
     width: calc(100% - 110PX);
+    padding: 10PX 15PX 10PX 0;
+    box-sizing: border-box;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
-  }
-  .list-title {
-    color: #000;
-    font-size: 16PX;
-    font-weight: 600;
-    width: calc(100% - 15PX);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .list-desc {
-    width: calc(100% - 15PX);
-    font-size: 14PX;
-    text-align: left;
-    color: grey;
-    padding-top: 10PX;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
+    .list-title {
+      color: #000;
+      font-size: 17PX;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .list-desc {
+      padding-top: 10PX;
+      font-size: 14PX;
+      text-align: left;
+      color: grey;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
   }
 }
