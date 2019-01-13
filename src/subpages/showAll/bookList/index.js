@@ -43,6 +43,7 @@ export default class BookListAll extends Component {
       currentLv2Tag: 0,
       currentDetailTagName: null,
       isShow: false,
+      isLoading: true,
       bookTags: [],
       bookList: []
     };
@@ -68,14 +69,19 @@ export default class BookListAll extends Component {
   };
 
   getBookList = params => {
+    Taro.showLoading({
+      title: '加载中'
+    })
     request({
       url: '/rapi/book-list',
       data: params
     })
       .then(res => {
         this.setState({
-          bookList: res.bookLists
+          bookList: res.bookLists,
+          isLoading: false
         });
+        Taro.hideLoading()
       })
       .catch(err => {
         throw err;
@@ -84,7 +90,8 @@ export default class BookListAll extends Component {
 
   handleLv1Tag(index) {
     this.setState({
-      currentLv1Tag: index
+      currentLv1Tag: index,
+      isLoading: true
     });
     data = Object.assign(data, lv1Params[tagLv1[index]]);
 
@@ -93,7 +100,8 @@ export default class BookListAll extends Component {
 
   handleLv2Tag(index) {
     this.setState({
-      currentLv2Tag: index
+      currentLv2Tag: index,
+      isLoading: true
     });
     let temp = null;
     if (tagLv2[index] === '全部') {
@@ -141,6 +149,7 @@ export default class BookListAll extends Component {
       currentLv1Tag,
       currentLv2Tag,
       isShow,
+      isLoading,
       bookTags,
       currentDetailTagName,
       bookList
@@ -184,7 +193,7 @@ export default class BookListAll extends Component {
           </AtTag>
         </View>
         <View className='book-list'>
-          {!isShow &&
+          {!isLoading &&
             bookList &&
             bookList.map(item => (
               <List
