@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text } from '@tarojs/components';
 import { AtDivider } from 'taro-ui';
+import TarBar from '../../../components/tarbar/';
 import { request } from '../../../utils';
 import './index.scss';
 
@@ -115,14 +116,12 @@ export default class Detail extends Component {
           <View className='detail-type'>
             {mins &&
               mins.map((item, index) => (
-                <View key={item} className='detail-text'>
-                  <Text
-                    onClick={this.getActiveItem.bind(this, index, item)}
-                    style={index === currentIndex ? 'color: #6190E8;' : ''}
-                  >
-                    {item}
-                  </Text>
-                </View>
+                <TarBar
+                  key={item}
+                  name={item}
+                  onActived={this.getActiveItem.bind(this, index, item)}
+                  activedStyle={index === currentIndex ? 'color: #6190E8;' : ''}
+                />
               ))}
           </View>
         </View>

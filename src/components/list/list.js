@@ -6,12 +6,17 @@ export default class List extends Component {
   constructor() {
     super(...arguments);
   }
-  handleNull = () => {console.log('111')}
+  static defaultProps = {
+    data: {
+      cover: ''
+    }
+  }
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     const { data, styleCover } = this.props;
     return (
-      <View className='list-container'
+      <View
+        className='list-container'
         key={data._id}
         onClick={this.props.onShowDetail}
       >
@@ -20,17 +25,15 @@ export default class List extends Component {
             style={styleCover}
             mode='aspectFill'
             src={
-              data.cover ? `${ImageBaseUrl}${data.cover}` : `${data.book.cover}`
+              data.cover.startsWith(ImageBaseUrl)
+                ? `${data.cover}`
+                : `${ImageBaseUrl}${data.cover}`
             }
           />
         </View>
         <View className='list-text'>
-          <View className='list-title'>
-            {data.title ? data.title : data.book.title}
-          </View>
-          <View className='list-desc'>
-            {data.desc ? data.desc : data.book.shortIntro}
-          </View>
+          <View className='list-title'>{data.title}</View>
+          <View className='list-desc'>{data.desc ? data.desc : data.shortIntro}</View>
         </View>
       </View>
     );

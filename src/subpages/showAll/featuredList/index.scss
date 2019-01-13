@@ -1,0 +1,46 @@
+.featured-container {
+  font-family: Arial, Helvetica, sans-serif;
+  .featured-list {
+    margin: 10PX;
+    .book-intro {
+      display: flex;
+      cursor: pointer;
+      .book-cover {
+        Image {
+          width: 90PX;
+          height: 115PX;
+          border-radius: 3PX;
+          box-shadow: 1PX 1PX 1PX silver;
+        }
+      }
+      .book-info {
+        flex-grow: 1;
+        margin-left: 10PX;
+        .book-title,
+        .book-author,
+        .book-tag {
+          margin-bottom: 10PX;
+        }
+        .book-title {
+          font-size: 16PX;
+          color: rgb(34, 34, 34);
+        }
+        .book-author {
+          font-size: 13PX;
+          color: rgb(91, 94, 97);
+        }
+        .book-popular {
+          display: flex;
+          color: rgb(156, 156, 156);
+          font-size: 13PX;
+          View Text{
+            color: rgb(255, 71, 60);
+          }
+          View:first-child {
+            margin-right: 15PX;
+          }
+        }
+      }
+    }
+  }
+}

@@ -24,7 +24,8 @@ class App extends Component {
       {
         root: 'subpages/showAll/',
         pages: [
-          'bookList/index'
+          'bookList/index',
+          'featuredList/index'
         ]
       }
     ],

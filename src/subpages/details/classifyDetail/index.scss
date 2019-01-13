@@ -1,24 +1,5 @@
 .detail-wrap {
   font-family: Arial, Helvetica, sans-serif;
-  .detail-header {
-    .detail-type {
-      display: flex;
-      flex-wrap: wrap;
-      .detail-text {
-        width: 33.3%;
-        text-align: center;
-        color: rgb(151, 154, 156);
-        font-size: 14PX;
-        margin: 8PX 0;
-        line-height: 1;
-        Text {
-          width: 100%;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-
   .detail-container {
     .detail-book {
       display: flex;

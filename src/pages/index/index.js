@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 import { AtSearchBar, Swiper, SwiperItem } from 'taro-ui';
-import List from '../../components/list/list'
+import List from '../../components/list/list';
 import { request } from '../../utils';
 import './index.scss';
 
@@ -34,11 +34,11 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  onChange = (value) => {
+  onChange = value => {
     this.setState({
       searchVal: value
     });
-  }
+  };
 
   getData() {
     const getRecommendInfo = request({
@@ -73,18 +73,34 @@ export default class Index extends Component {
   showMore = () => {
     Taro.navigateTo({
       url: `/subpages/showAll/bookList/index`
-    })
-  }
+    });
+  };
 
   showBookList(bookListId) {
     Taro.navigateTo({
       url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
-    })
+    });
+  }
+
+  showFeatured(nodes) {
+    let dataTag = [];
+    nodes.map(item => {
+      dataTag.push({
+        id: item._id,
+        title: item.title,
+        sex: item.sex,
+        bookType: item.bookType
+      });
+    });
+    dataTag = JSON.stringify(dataTag);
+    Taro.navigateTo({
+      url: `/subpages/showAll/featuredList/index?dataTag=${dataTag}`
+    });
   }
 
   render() {
     const {
-      swpierData: { spread },
+      swpierData: { spread, nodes },
       bookList,
       recommendBooks,
       loading
@@ -125,7 +141,9 @@ export default class Index extends Component {
           <View className='layout-list'>
             <View className='layout-header'>
               <Text className='header-text'>热门书单</Text>
-              <Text className='view-more' onClick={this.showMore}>查看更多</Text>
+              <Text className='view-more' onClick={this.showMore}>
+                查看更多
+              </Text>
             </View>
             {bookList &&
               bookList.map(item => (
@@ -140,11 +158,18 @@ export default class Index extends Component {
           <View className='layout-list'>
             <View className='layout-header'>
               <Text className='header-text'>精选书籍</Text>
+              <Text
+                className='view-more'
+                onClick={this.showFeatured.bind(this, nodes)}
+              >
+                查看更多
+              </Text>
             </View>
             {recommendBooks &&
-              recommendBooks.map(item => (
-                <List key={item.id} data={item} />
-              ))}
+              recommendBooks.map(item => {
+                const { book } = item;
+                return <List key={item.id} data={book} />;
+              })}
           </View>
         </View>
       );
