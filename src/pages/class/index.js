@@ -22,12 +22,6 @@ export default class Index extends Component {
     this.getBookStatictis();
   }
 
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
   getBookStatictis() {
     Taro.showLoading({
       title: '加载中'
@@ -51,11 +45,11 @@ export default class Index extends Component {
       url: `/subpages/details/classifyDetail/index?tag=${tag}&type=${type}`
     });
   }
-  changeCurrent = (value) => {
+  changeCurrent = value => {
     this.setState({
       current: value
     });
-  }
+  };
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     const { statistics, current, loading } = this.state;
@@ -96,7 +90,6 @@ export default class Index extends Component {
                   <View className='statistic-img'>
                     <Image
                       mode='aspectFill'
-                      style={{ width: '60PX', height: '80PX' }}
                       src={`${ImageBaseUrl}${item.bookCover[0]}`}
                     />
                   </View>
