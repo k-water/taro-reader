@@ -61,7 +61,7 @@ export default class FeaturedList extends Component {
     return (
       <View className='featured-container'>
         <View className='featured-tarbar'>
-          {JSON.parse(dataTag).map((item, index) => (
+          {dataTag && JSON.parse(dataTag).map((item, index) => (
             <TarBar
               key={item.id}
               name={item.title}
