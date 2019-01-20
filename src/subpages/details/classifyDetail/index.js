@@ -117,6 +117,7 @@ export default class Detail extends Component {
             {mins &&
               mins.map((item, index) => (
                 <TarBar
+                  column={3}
                   key={item}
                   name={item}
                   onActived={this.getActiveItem.bind(this, index, item)}
