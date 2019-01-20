@@ -165,7 +165,7 @@ export default class Index extends Component {
                 <ListSimple
                   book={item}
                   key={item._id}
-                  coverStyle={{ margin: '0 0 10PX 15PX' }}
+                  coverStyle={{ margin: '10PX 0 0PX 15PX' }}
                 />
               ))}
           </View>

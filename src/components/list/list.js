@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
+import PropTypes from 'prop-types';
 import './list.scss';
 
 export default class List extends Component {
@@ -11,6 +12,12 @@ export default class List extends Component {
       cover: ''
     }
   }
+
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    styleCover: PropTypes.object
+  }
+
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
     const { data, styleCover } = this.props;

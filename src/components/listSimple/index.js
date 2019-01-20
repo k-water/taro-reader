@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text } from '@tarojs/components';
 import { AtTag } from 'taro-ui';
+import PropTypes from 'prop-types';
 import './index.scss';
 
 export default class ListSimple extends Component {
@@ -8,6 +9,11 @@ export default class ListSimple extends Component {
 
   constructor() {
     super(...arguments);
+  }
+
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    coverStyle: PropTypes.object
   }
 
   render() {
