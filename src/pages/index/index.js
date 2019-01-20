@@ -94,6 +94,12 @@ export default class Index extends Component {
     });
   }
 
+  showRanking = () => {
+    Taro.navigateTo({
+      url: '/subpages/details/rankingDetail/index'
+    })
+  }
+
   render() {
     const {
       swpierData: { spread, nodes, ranking },
@@ -158,14 +164,14 @@ export default class Index extends Component {
           <View className='layout-list'>
             <View className='layout-header'>
               <Text className='header-text'>排行榜</Text>
-              <Text className='view-more'>查看更多</Text>
+              <Text className='view-more' onClick={this.showRanking}>查看更多</Text>
             </View>
             {rankingLimit &&
               rankingLimit.map(item => (
                 <ListSimple
                   book={item}
                   key={item._id}
-                  coverStyle={{ margin: '10PX 0 0PX 15PX' }}
+                  customStyle={{ margin: '10PX 0 0 15PX' }}
                 />
               ))}
           </View>

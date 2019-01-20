@@ -7,7 +7,6 @@ class App extends Component {
 
   config = {
     pages: [
-      // 'subpages/details/booklistDetail/index',
       'pages/index/index',
       'pages/class/index',
       'pages/book/index',
@@ -18,7 +17,8 @@ class App extends Component {
         root: 'subpages/details/',
         pages: [
           'classifyDetail/index',
-          'booklistDetail/index'
+          'booklistDetail/index',
+          'rankingDetail/index'
         ]
       },
       {
