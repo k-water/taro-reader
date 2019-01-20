@@ -13,23 +13,28 @@ export default class ListSimple extends Component {
 
   static propTypes = {
     book: PropTypes.object.isRequired,
+    customStyle: PropTypes.object,
     coverStyle: PropTypes.object
-  }
+  };
 
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
-    const { book, coverStyle } = this.props;
+    const { book, customStyle, coverStyle } = this.props;
     if (book) {
       return (
-        <View className='book-intro'>
-          <View className='book-cover' style={coverStyle}>
-            <Image mode='aspectFill' src={`${ImageBaseUrl}${book.cover}`} />
+        <View className='book-intro' style={customStyle}>
+          <View className='book-cover'>
+            <Image
+              mode='aspectFill'
+              src={`${ImageBaseUrl}${book.cover}`}
+              style={coverStyle}
+            />
           </View>
           <View className='book-info'>
             <View className='book-title'> {book.title} </View>
             <View className='book-author'> {book.author} </View>
             <View className='book-tag'>
-              <AtTag circle size='small' customStyle={{ marginRight: '5PX' }}>
+              <AtTag circle size='small'>
                 {book.majorCate}
               </AtTag>
               <AtTag circle size='small'>
@@ -41,7 +46,7 @@ export default class ListSimple extends Component {
                 <Text>{book.latelyFollower}</Text>人气
               </View>
               <View>
-                <Text>{book.retentionRatio.toFixed(2)}%</Text>
+                <Text>{book.retentionRatio.length ? book.retentionRatio : book.retentionRatio.toFixed(2)}%</Text>
                 读者留存
               </View>
             </View>
@@ -49,5 +54,5 @@ export default class ListSimple extends Component {
         </View>
       );
     }
-    }
+  }
 }
