@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 import { AtSearchBar, Swiper, SwiperItem } from 'taro-ui';
 import List from '../../components/list/list';
+import ListSimple from '../../components/listSimple/';
 import { request } from '../../utils';
 import './index.scss';
 
@@ -22,17 +23,9 @@ export default class Index extends Component {
     };
   }
 
-  componentWillMount() {}
-
   componentDidMount() {
     this.getData();
   }
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
 
   onChange = value => {
     this.setState({
@@ -48,7 +41,10 @@ export default class Index extends Component {
       url: '/rapi/book-list'
     });
     const getRecommendList = request({
-      url: '/rapi/recommendPage/node/books/all/57832d5ebe9f970e3dc4270d'
+      url: '/rapi/recommendPage/node/books/all/57832d5ebe9f970e3dc4270d',
+      data: {
+        size: 4
+      }
     });
 
     Taro.showLoading({
@@ -59,7 +55,7 @@ export default class Index extends Component {
       .then(resList => {
         this.setState({
           swpierData: resList[0].data,
-          bookList: resList[1].bookLists.slice(0, 3),
+          bookList: resList[1].bookLists.slice(0, 4),
           recommendBooks: resList[2].data,
           loading: false
         });
@@ -100,11 +96,15 @@ export default class Index extends Component {
 
   render() {
     const {
-      swpierData: { spread, nodes },
+      swpierData: { spread, nodes, ranking },
       bookList,
       recommendBooks,
       loading
     } = this.state;
+    let rankingLimit = null
+    if (ranking) {
+      rankingLimit = ranking.slice(0, 4)
+    }
     if (!loading) {
       return (
         <View className='index-wrap'>
@@ -151,6 +151,21 @@ export default class Index extends Component {
                   key={item._id}
                   data={item}
                   onShowDetail={this.showBookList.bind(this, item._id)}
+                />
+              ))}
+          </View>
+
+          <View className='layout-list'>
+            <View className='layout-header'>
+              <Text className='header-text'>排行榜</Text>
+              <Text className='view-more'>查看更多</Text>
+            </View>
+            {rankingLimit &&
+              rankingLimit.map(item => (
+                <ListSimple
+                  book={item}
+                  key={item._id}
+                  coverStyle={{ margin: '0 0 10PX 15PX' }}
                 />
               ))}
           </View>
