@@ -7,28 +7,30 @@ class App extends Component {
 
   config = {
     pages: [
+      'subpages/details/bookDetail/index',
       'pages/index/index',
       'pages/class/index',
       'pages/book/index',
       'pages/person/index',
     ],
-    subpackages: [
-      {
-        root: 'subpages/details/',
-        pages: [
-          'classifyDetail/index',
-          'booklistDetail/index',
-          'rankingDetail/index'
-        ]
-      },
-      {
-        root: 'subpages/showAll/',
-        pages: [
-          'bookList/index',
-          'featuredList/index'
-        ]
-      }
-    ],
+    // subpackages: [
+    //   {
+    //     root: 'subpages/details/',
+    //     pages: [
+    //       'classifyDetail/index',
+    //       'booklistDetail/index',
+    //       'rankingDetail/index',
+    //       'bookDetail/index'
+    //     ]
+    //   },
+    //   {
+    //     root: 'subpages/showAll/',
+    //     pages: [
+    //       'bookList/index',
+    //       'featuredList/index'
+    //     ]
+    //   }
+    // ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

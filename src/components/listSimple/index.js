@@ -19,10 +19,13 @@ export default class ListSimple extends Component {
 
   render() {
     const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
-    const { book, customStyle, coverStyle } = this.props;
+    const { book, customStyle, coverStyle, onBookDetail } = this.props;
     if (book) {
       return (
-        <View className='book-intro' style={customStyle}>
+        <View className='book-intro'
+          style={customStyle}
+          onClick={onBookDetail}
+        >
           <View className='book-cover'>
             <Image
               mode='aspectFill'

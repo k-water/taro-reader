@@ -1,0 +1,203 @@
+.book-container {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(226, 231, 234);
+  .book-detail {
+    background-color: #ffffff;
+    padding: 10PX 20PX;
+    display: flex;
+    .book-cover {
+      Image {
+        width: 90PX;
+        height: 115PX;
+        border-radius: 3PX;
+        box-shadow: 1PX 1PX 1PX silver;
+      }
+    }
+    .book-info {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      margin-left: 10PX;
+    }
+    .book-title {
+      color: rgb(25, 27, 40);
+      font-size: 20PX;
+      font-weight: bold;
+      font-family: 'Microsoft JhengHei';
+    }
+    .book-author {
+      color: rgb(24, 144, 255);
+      font-size: 15PX;
+      font-weight: 600;
+      font-family: 'Microsoft JhengHei';
+    }
+    .book-desc {
+      color: rgb(101, 105, 108);
+      font-size: 14PX;
+      margin-bottom: 3PX;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .book-more {
+      color: rgb(154, 156, 159);
+      font-size: 13PX;
+      cursor: pointer;
+    }
+    .book-title,
+    .book-author {
+      margin-bottom: 5PX;
+    }
+  }
+  .book-rank {
+    background-color: #ffffff;
+    display: flex;
+    padding: 0 20PX;
+    .book-score {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .book-star {
+        display: flex;
+      }
+    }
+    .rank-text{
+      color: rgb(164, 168, 167);
+      font-size: 14PX;
+    }
+    .book-follower {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 10PX;
+    }
+  }
+  .book-review {
+    margin-top: 10PX;
+    .review-header {
+      background-color: #ffffff;
+      height: 36PX;
+      line-height: 36PX;
+      padding: 2PX 10PX 2PX 10PX;
+      font-size: 18PX;
+      font-family: 'Microsoft JhengHei';
+      font-weight: bold;
+      border-bottom: 1px solid rgb(216, 216, 216);
+    }
+    .review-container {
+      .review-info {
+        display: flex;
+        justify-content: space-between;
+        padding: 10PX 20PX;
+        background-color: #ffffff;
+      }
+      .info-left {
+        display: flex;
+        .info-author {
+          display: flex;
+          flex-direction: column;
+          padding-left: 5PX;
+          .author-name {
+            color: rgb(126, 125, 131);
+            font-size: 14PX;
+          }
+          .author-time {
+            padding-top: 3PX;
+            color: rgb(149, 151, 155);
+            font-size: 11PX;
+          }
+        }
+      }
+      .info-right {
+        display: flex;
+        flex-direction: column;
+        .info-like {
+          padding-top: 5PX;
+          color: rgb(149, 151, 155);
+          font-size: 11PX;
+          text-align: right;
+        }
+      }
+
+      .review-text {
+        background-color: #ffffff;
+        padding: 0 20PX;
+        .review-title {
+          color: rgb(5, 9, 12);
+          font-size: 16PX;
+          padding-bottom: 5PX;
+        }
+        .review-content {
+          color: rgb(120, 119, 124);
+          font-size: 14PX;
+          text-align: justify;
+          padding-bottom: 10PX;
+        }
+      }
+    }
+  }
+  .book-action {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #ffffff;
+    border-top: 1px solid rgb(216, 216, 216);
+    position: fixed;
+    bottom: 0;
+    .book-add,
+    .book-read {
+      cursor: pointer;
+      height: 48PX;
+      line-height: 48PX;
+      color: rgb(24, 144, 255);
+      font-size: 16PX;
+    }
+  }
+  .book-recommend {
+    margin-bottom: 36PX;
+    .recommend-header {
+      background-color: #ffffff;
+      height: 36PX;
+      line-height: 36PX;
+      padding: 2PX 10PX 2PX 10PX;
+      font-size: 18PX;
+      font-family: 'Microsoft JhengHei';
+      font-weight: bold;
+      border-bottom: 1px solid rgb(216, 216, 216);
+    }
+    .recommend-content {
+      display: flex;
+      justify-content: space-between;
+      padding: 20PX 0PX;
+      background-color: #ffffff;
+      flex-wrap: wrap;
+      .recommend-info {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: calc(100% / 3);
+        padding-bottom: 10PX;
+        Image {
+          width: 90PX;
+          height: 115PX;
+          border-radius: 3PX;
+          box-shadow: 1PX 1PX 1PX silver;
+        }
+        .reacommend-title {
+          font-size: 13PX;
+          padding-top: 8PX;
+        }
+        .recommend-author {
+          font-size: 11PX;
+          color: rgb(126, 125, 131);
+          padding-top: 2PX;
+        }
+      }
+    }
+  }
+}

@@ -43,6 +43,12 @@ export default class BookListDetail extends Component {
       });
   };
 
+  goToBookDetail(bookId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookDetail/index?bookId=${bookId}`
+    })
+  }
+
   render() {
     const { author, updated, title, desc, books } = this.state.bookDetailList;
     const { isLoading } = this.state;
@@ -73,7 +79,7 @@ export default class BookListDetail extends Component {
                 const { book } = item;
                 return (
                   <View className='book-detail' key={book._id}>
-                    <ListSimple book={book} />
+                    <ListSimple book={book}  onBookDetail={this.goToBookDetail.bind(this, book._id)} />
                     <View className='book-comment'>{item.comment}</View>
                   </View>
                 );

@@ -1,10 +1,10 @@
 import Taro from '@tarojs/taro';
 
 //  prod
-// const BASE_URL = 'https://blog.iwaterlc.com'
+const BASE_URL = 'https://blog.iwaterlc.com'
 
 //  dev
-const BASE_URL = 'http://localhost:7001';
+// const BASE_URL = 'http://localhost:7001';
 const request = ({
   url,
   data = {},
