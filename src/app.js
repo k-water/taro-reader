@@ -20,7 +20,8 @@ class App extends Component {
     //       'classifyDetail/index',
     //       'booklistDetail/index',
     //       'rankingDetail/index',
-    //       'bookDetail/index'
+    //       'bookDetail/index',
+    //       'bookInfo/index'
     //     ]
     //   },
     //   {

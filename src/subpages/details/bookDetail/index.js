@@ -69,6 +69,12 @@ export default class BookDetail extends Component {
     });
   }
 
+  showMoreInfo = () => {
+    Taro.navigateTo({
+      url: `/subpages/details/bookInfo/index?bookId=${this.$router.params.bookId}`
+    })
+  }
+
   render() {
     const ImageUrl = 'http://statics.zhuishushenqi.com'
     const { bookInfo, bookReview, bookRecommend, isLoading } = this.state
@@ -100,7 +106,7 @@ export default class BookDetail extends Component {
               <View className='book-desc'>
                 {bookInfo.longIntro}
               </View>
-              <View className='book-more'>
+              <View className='book-more' onClick={this.showMoreInfo}>
                 更多
               </View>
             </View>

@@ -1,0 +1,60 @@
+.book-info-container {
+  font-family: 'SimHei', 'STXihei', 'STHeiti';
+  .info-desc {
+    padding: 15PX;
+    Text {
+      color: #000000;
+      font-size: 20PX;
+    }
+    .desc-content {
+      padding: 10PX 0;
+      color: rgb(160, 164, 165);
+      font-size: 17PX;
+      text-align: justify;
+      line-height: 180%;
+      border-bottom: 1px solid rgb(213, 213, 213);
+    }
+  }
+
+  .info-copyright {
+    padding: 0 15PX 15PX 15PX;
+    Text {
+      color: #000000;
+      font-size: 20PX;
+    }
+    .detail-copyright {
+      padding: 10PX 0;
+      border-bottom: 1px solid rgb(213, 213, 213);
+      .copyright-line {
+        display: flex;
+        padding-bottom: 5PX;
+        .line-title {
+          width: 75PX;
+          font-size: 17PX;
+          color: rgb(160, 164, 165);
+          font-family: 'SimHei', 'STXihei', 'STHeiti';
+        }
+        .line-value {
+          flex: 1;
+          font-size: 17PX;
+          color: rgb(7, 11, 14);
+          font-family: 'SimHei', 'STXihei', 'STHeiti';
+        }
+      }
+    }
+  }
+
+  .info-directory {
+    padding: 0 15PX 15PX 15PX;
+    Text {
+      color: #000000;
+      font-size: 20PX;
+    }
+  }
+  .at-list__item {
+    padding: 13PX 0;
+    border-bottom: 1px solid rgb(213, 213, 213);
+    font-size: 17PX;
+    font-family: 'SimHei', 'STXihei', 'STHeiti';
+  }
+}
