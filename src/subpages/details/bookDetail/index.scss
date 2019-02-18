@@ -134,10 +134,41 @@
         .review-content {
           color: rgb(120, 119, 124);
           font-size: 14PX;
-          text-align: justify;
           padding-bottom: 10PX;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 5;
+          -webkit-box-orient: vertical;
+          max-height: 89PX !important;
+          text-align: justify;
         }
       }
+
+      .review-extend {
+        display: flex;
+        justify-content: space-around;
+        background-color: #ffffff;
+        padding: 5PX 0 10PX 0;
+        .review-like,
+        .review-comment {
+          color: rgb(151, 155, 158);
+          Text {
+            padding-left: 4PX;
+            font-size: 15PX;
+          }
+        }
+      }
+    }
+    .review-more {
+      text-align: center;
+      color: rgb(24, 144, 255);
+      font-size: 14PX;
+      height: 38PX;
+      line-height: 38PX;
+      background-color: #ffffff;
+      margin: -10PX 0 10PX 0;
+      border-top: 1px solid rgb(216, 216, 216);
     }
   }
   .book-action {
@@ -158,7 +189,7 @@
     }
   }
   .book-recommend {
-    margin-bottom: 36PX;
+    margin-bottom: 38PX;
     .recommend-header {
       background-color: #ffffff;
       height: 36PX;
