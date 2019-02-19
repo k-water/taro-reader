@@ -4,7 +4,6 @@ import { AtList, AtListItem } from 'taro-ui'
 import { request, addChineseUnit } from '../../../utils'
 import './index.scss';
 
-let count = 2
 export default class BookInfoDetail extends Component {
   config = {
     navigationBarTitleText: ''
@@ -16,11 +15,17 @@ export default class BookInfoDetail extends Component {
       bookInfo: {},
       bookChapters: [],
       bookAllChapters: [],
-      isLoading: true
+      isLoading: true,
+      scrollCount: 2,
+      windowHeight: 0
     }
   }
 
   componentDidMount() {
+    const res = Taro.getSystemInfoSync()
+    this.setState({
+      windowHeight: res.windowHeight
+    })
     this.getInitData()
   }
 
@@ -58,18 +63,21 @@ export default class BookInfoDetail extends Component {
 
   // bad
   onPageScroll(e) {
-    const res = Taro.getSystemInfoSync()
-    if (e.scrollTop > (res.windowHeight * (count - 1)) / 2) {
-      count++
-      if (count * 10 < this.state.bookAllChapters.length) {
-        this.setState({
-          bookChapters: this.state.bookAllChapters.slice(0, 10 * count)
-        })
-      } else {
-        this.setState({
-          bookChapters: this.state.bookAllChapters
-        })
-      }
+    const { scrollCount, windowHeight, bookAllChapters } = this.state
+    if (e.scrollTop > (windowHeight * (scrollCount - 1)) / 2) {
+      this.setState({
+        scrollCount: scrollCount + 1
+      }, () => {
+        if (scrollCount * 10 < bookAllChapters.length) {
+          this.setState({
+            bookChapters: bookAllChapters.slice(0, 10 * scrollCount)
+          })
+        } else {
+          this.setState({
+            bookChapters: bookAllChapters
+          })
+        }
+      })
     }
   }
 
