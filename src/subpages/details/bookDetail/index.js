@@ -69,9 +69,15 @@ export default class BookDetail extends Component {
     });
   }
 
-  showMoreInfo = () => {
+  jumpMoreInfoPage = () => {
     Taro.navigateTo({
       url: `/subpages/details/bookInfo/index?bookId=${this.$router.params.bookId}`
+    })
+  }
+
+  jumpReadPage = () => {
+    Taro.navigateTo({
+      url: `/subpages/book/read/index?bookId=${this.$router.params.bookId}&bookTitle=${this.state.bookInfo.title}`
     })
   }
 
@@ -106,7 +112,7 @@ export default class BookDetail extends Component {
               <View className='book-desc'>
                 {bookInfo.longIntro}
               </View>
-              <View className='book-more' onClick={this.showMoreInfo}>
+              <View className='book-more' onClick={this.jumpMoreInfoPage}>
                 更多
               </View>
             </View>
@@ -233,7 +239,10 @@ export default class BookDetail extends Component {
             <View className='book-add'>
               加入书架
             </View>
-            <View className='book-read'>
+            <View
+              className='book-read'
+              onClick={this.jumpReadPage}
+            >
               开始阅读
             </View>
           </View>
