@@ -2,7 +2,6 @@ page {
   background-color:#f2eeeb;
 }
 .read-container {
-  padding: 20PX 10PX;
   background-color: rgb(242, 238, 235);
   .read-title {
     color: #000;
@@ -64,5 +63,97 @@ page {
   }
   .drawer-actived {
     color: rgb(24, 144, 255);
+  }
+
+  .bottom-sheet {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+    background-color: rgb(70, 70, 70);
+    height: 0;
+    transition: height 0.5s ease-out;
+    .read-font {
+      padding: 20PX 15PX;
+      display: flex;
+      justify-content: space-between;
+      .font-decrease,
+      .font-increase {
+        width: 15%;
+        border: 1px solid rgb(97, 96, 96);
+        border-radius: 5PX;
+        height: 36PX;
+        line-height: 36PX;
+        text-align: center;
+        Text {
+          color: #ffffff;
+          font-size: 15PX;
+        }
+      }
+      .font-line {
+        width: 60%;
+        height: 3PX;
+        background-color: rgb(109, 109, 109);
+        align-self: center;
+        .progress-line {
+          width: 40%;
+          height: 3PX;
+          background-color: rgb(24, 144, 255);
+        }
+      }
+    }
+
+    .read-mode {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15PX 20PX 15PX;
+      .mode-default,
+      .mode-night,
+      .mode-eye {
+        width: 30%;
+        border: 1px solid rgb(97, 96, 96);
+        border-radius: 5PX;
+        height: 34PX;
+        line-height: 34PX;
+        text-align: center;
+        Text {
+          color: #ffffff;
+          font-size: 14PX;
+        }
+      }
+      .mode-night {
+        background-color: rgb(20, 20, 20);
+      }
+      .mode-eye {
+        background-color: rgb(200, 237, 204);
+      }
+      .mode-actived {
+        border-color: rgb(40, 41, 41);
+        Text {
+          color: rgb(59, 159, 253);
+        }
+      }
+    }
+
+    .read-operate {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15PX 20PX 15PX;
+      .prev-chapter,
+      .book-director,
+      .next-chapter {
+        width: 30%;
+        border: 1px solid rgb(97, 96, 96);
+        border-radius: 5PX;
+        height: 34PX;
+        line-height: 34PX;
+        text-align: center;
+        Text {
+          color: #ffffff;
+          font-size: 14PX;
+        }
+      }
+    }
+
   }
 }
