@@ -1,43 +1,44 @@
 import Taro, { Component } from '@tarojs/taro'
 import '@tarojs/async-await'
 import Index from './pages/index'
+import 'taro-ui/dist/style/index.scss'
 import './app.scss'
 
 class App extends Component {
 
   config = {
     pages: [
-      // 'subpages/book/read/index',
+      'subpages/book/read/index',
       'pages/index/index',
       'pages/class/index',
       'pages/book/index',
       'pages/person/index',
     ],
-    subpackages: [
-      {
-        root: 'subpages/details/',
-        pages: [
-          'classifyDetail/index',
-          'booklistDetail/index',
-          'rankingDetail/index',
-          'bookDetail/index',
-          'bookInfo/index'
-        ]
-      },
-      {
-        root: 'subpages/showAll/',
-        pages: [
-          'bookList/index',
-          'featuredList/index'
-        ]
-      },
-      {
-        root: 'subpages/book/',
-        pages: [
-          'read/index'
-        ]
-      }
-    ],
+    // subpackages: [
+    //   {
+    //     root: 'subpages/details/',
+    //     pages: [
+    //       'classifyDetail/index',
+    //       'booklistDetail/index',
+    //       'rankingDetail/index',
+    //       'bookDetail/index',
+    //       'bookInfo/index'
+    //     ]
+    //   },
+    //   {
+    //     root: 'subpages/showAll/',
+    //     pages: [
+    //       'bookList/index',
+    //       'featuredList/index'
+    //     ]
+    //   },
+    //   {
+    //     root: 'subpages/book/',
+    //     pages: [
+    //       'read/index'
+    //     ]
+    //   }
+    // ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
@@ -65,7 +66,7 @@ class App extends Component {
           pagePath: 'pages/book/index',
           text: '书架',
           iconPath: './static/icon/book.png',
-          selectedIconPath: '/static/icon/book-selected.png'
+          selectedIconPath: './static/icon/book-selected.png'
         },
         {
           pagePath: 'pages/person/index',

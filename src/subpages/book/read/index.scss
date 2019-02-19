@@ -49,4 +49,20 @@ page {
       color: rgba(200, 196, 193, 0.5) !important;
     }
   }
+  .drawer-title {
+    padding: 13PX;
+    font-size: 18PX;
+  }
+  .drawer-item {
+    .at-list__item-extra {
+      flex: 0 0 0 !important;
+      width: 0 !important;
+    }
+    .item-content__info-title {
+      font-size: 15PX;
+    }
+  }
+  .drawer-actived {
+    color: rgb(24, 144, 255);
+  }
 }
