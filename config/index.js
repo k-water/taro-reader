@@ -26,6 +26,7 @@ const config = {
   },
   copy: {
      patterns: [
+       { from: 'src/cloudFunctions', to: 'dist/cloudFunctions' }
     ],
     options: {
     }
