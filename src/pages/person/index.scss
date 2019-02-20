@@ -1,0 +1,27 @@
+page {
+  background-color: #e4e8eb;
+}
+.personal-container {
+  .personal-info {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20PX 0;
+    .personal-name {
+      padding-bottom: 15PX;
+      Text {
+        font-size: 15PX;
+      }
+    }
+    .personal-avatar {
+      height: 80PX;
+      Image {
+        width: 80PX;
+        height: 80PX;
+        border-radius: 50%;
+      }
+    }
+  }
+}
