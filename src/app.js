@@ -5,13 +5,12 @@ import Index from './pages/index'
 import './app.scss'
 
 class App extends Component {
-
   config = {
     pages: [
       'pages/index/index',
       'pages/class/index',
       'pages/book/index',
-      'pages/person/index',
+      'pages/person/index'
     ],
     subpackages: [
       {
@@ -26,16 +25,11 @@ class App extends Component {
       },
       {
         root: 'subpages/showAll/',
-        pages: [
-          'bookList/index',
-          'featuredList/index'
-        ]
+        pages: ['bookList/index', 'featuredList/index']
       },
       {
         root: 'subpages/book/',
-        pages: [
-          'read/index'
-        ]
+        pages: ['read/index']
       }
     ],
     window: {
@@ -72,7 +66,7 @@ class App extends Component {
           text: '我',
           iconPath: './static/icon/person.png',
           selectedIconPath: './static/icon/person-selected.png'
-        },
+        }
       ]
     },
     networkTimeout: {
@@ -82,20 +76,18 @@ class App extends Component {
     debug: true
   }
 
-  componentDidMount () {}
+  componentDidMount() {}
 
-  componentDidShow () {}
+  componentDidShow() {}
 
-  componentDidHide () {}
+  componentDidHide() {}
 
-  componentDidCatchError () {}
+  componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
-    return (
-      <Index />
-    )
+  render() {
+    return <Index />
   }
 }
 

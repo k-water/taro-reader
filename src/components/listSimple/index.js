@@ -1,31 +1,28 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
-import { AtTag } from 'taro-ui';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Image, Text } from '@tarojs/components'
+import { AtTag } from 'taro-ui'
+import PropTypes from 'prop-types'
+import './index.scss'
 
 export default class ListSimple extends Component {
-  config = {};
+  config = {}
 
   constructor() {
-    super(...arguments);
+    super(...arguments)
   }
 
   static propTypes = {
     book: PropTypes.object.isRequired,
     customStyle: PropTypes.object,
     coverStyle: PropTypes.object
-  };
+  }
 
   render() {
-    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
-    const { book, customStyle, coverStyle, onBookDetail } = this.props;
+    const ImageBaseUrl = 'http://statics.zhuishushenqi.com'
+    const { book, customStyle, coverStyle, onBookDetail } = this.props
     if (book) {
       return (
-        <View className='book-intro'
-          style={customStyle}
-          onClick={onBookDetail}
-        >
+        <View className='book-intro' style={customStyle} onClick={onBookDetail}>
           <View className='book-cover'>
             <Image
               mode='aspectFill'
@@ -49,13 +46,18 @@ export default class ListSimple extends Component {
                 <Text>{book.latelyFollower}</Text>人气
               </View>
               <View>
-                <Text>{book.retentionRatio.length ? book.retentionRatio : book.retentionRatio.toFixed(2)}%</Text>
+                <Text>
+                  {book.retentionRatio.length
+                    ? book.retentionRatio
+                    : book.retentionRatio.toFixed(2)}
+                  %
+                </Text>
                 读者留存
               </View>
             </View>
           </View>
         </View>
-      );
+      )
     }
   }
 }

@@ -1,8 +1,8 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import { request, addChineseUnit } from '../../../utils'
-import './index.scss';
+import './index.scss'
 
 export default class BookInfoDetail extends Component {
   config = {
@@ -47,37 +47,43 @@ export default class BookInfoDetail extends Component {
     Taro.showLoading({
       title: '加载中...'
     })
-    Promise.all([getBookInfo, getDirectory])
-      .then(resList => {
-        this.setState({
+    Promise.all([getBookInfo, getDirectory]).then(resList => {
+      this.setState(
+        {
           bookInfo: resList[0],
           bookChapters: resList[1].chapters.slice(0, 20),
           bookAllChapters: resList[1].chapters,
           isLoading: false
-        }, () => Taro.setNavigationBarTitle({
-          title: this.state.bookInfo.title
-        }));
-        Taro.hideLoading()
-      })
+        },
+        () =>
+          Taro.setNavigationBarTitle({
+            title: this.state.bookInfo.title
+          })
+      )
+      Taro.hideLoading()
+    })
   }
 
   // bad
   onPageScroll(e) {
     const { scrollCount, windowHeight, bookAllChapters } = this.state
     if (e.scrollTop > (windowHeight * (scrollCount - 1)) / 2) {
-      this.setState({
-        scrollCount: scrollCount + 1
-      }, () => {
-        if (scrollCount * 10 < bookAllChapters.length) {
-          this.setState({
-            bookChapters: bookAllChapters.slice(0, 10 * scrollCount)
-          })
-        } else {
-          this.setState({
-            bookChapters: bookAllChapters
-          })
+      this.setState(
+        {
+          scrollCount: scrollCount + 1
+        },
+        () => {
+          if (scrollCount * 10 < bookAllChapters.length) {
+            this.setState({
+              bookChapters: bookAllChapters.slice(0, 10 * scrollCount)
+            })
+          } else {
+            this.setState({
+              bookChapters: bookAllChapters
+            })
+          }
         }
-      })
+      )
     }
   }
 
@@ -88,36 +94,45 @@ export default class BookInfoDetail extends Component {
         <View className='book-info-container'>
           <View className='info-desc'>
             <Text>简介</Text>
-            <View className='desc-content'>
-              {bookInfo.longIntro}
-            </View>
+            <View className='desc-content'>{bookInfo.longIntro}</View>
           </View>
           <View className='info-copyright'>
             <Text>版权</Text>
             <View className='detail-copyright'>
               <View className='copyright-line'>
                 <Text className='line-title'>版权</Text>
-                <Text className='line-value' style={{color: 'rgb(24, 144, 255)'}}>{bookInfo.copyright}</Text>
+                <Text
+                  className='line-value'
+                  style={{ color: 'rgb(24, 144, 255)' }}
+                >
+                  {bookInfo.copyright}
+                </Text>
               </View>
               <View className='copyright-line'>
                 <Text className='line-title'>更新时间</Text>
-                <Text className='line-value'>{bookInfo.updated && bookInfo.updated.substr(0, 10)}</Text>
+                <Text className='line-value'>
+                  {bookInfo.updated && bookInfo.updated.substr(0, 10)}
+                </Text>
               </View>
               <View className='copyright-line'>
                 <Text className='line-title'>字数</Text>
-                <Text className='line-value'>{addChineseUnit(bookInfo.wordCount)}</Text>
+                <Text className='line-value'>
+                  {addChineseUnit(bookInfo.wordCount)}
+                </Text>
               </View>
               <View className='copyright-line'>
                 <Text className='line-title'>分类</Text>
-                <Text className='line-value'>{bookInfo.tags && bookInfo.tags.join(' ')}</Text>
+                <Text className='line-value'>
+                  {bookInfo.tags && bookInfo.tags.join(' ')}
+                </Text>
               </View>
             </View>
           </View>
           <View className='info-directory'>
             <Text>目录</Text>
             <AtList hasBorder={false}>
-              {
-                bookChapters && bookChapters.map(item => {
+              {bookChapters &&
+                bookChapters.map(item => {
                   return (
                     <AtListItem
                       key={item.id}
@@ -125,8 +140,7 @@ export default class BookInfoDetail extends Component {
                       hasBorder={false}
                     />
                   )
-                })
-              }
+                })}
             </AtList>
           </View>
         </View>

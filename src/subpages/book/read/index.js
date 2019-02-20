@@ -1,8 +1,8 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, ScrollView } from '@tarojs/components';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, ScrollView } from '@tarojs/components'
 import { AtDrawer, AtList, AtListItem } from 'taro-ui'
 import { request } from '../../../utils'
-import './index.scss';
+import './index.scss'
 
 export default class BookRead extends Component {
   config = {
@@ -99,7 +99,7 @@ export default class BookRead extends Component {
         })
       })
       .catch(err => {
-        throw(err)
+        throw err
       })
     Taro.hideLoading()
   }
@@ -123,37 +123,49 @@ export default class BookRead extends Component {
   }
 
   jumpToChapter(index) {
-    this.setState({
-      currentIndex: index,
-      showDirectory: false
-    }, () => this.getChapterContent(index))
+    this.setState(
+      {
+        currentIndex: index,
+        showDirectory: false
+      },
+      () => this.getChapterContent(index)
+    )
   }
 
   onScroll(e) {
     const { windowHeight, scrollCount, bookAllDirectory } = this.state
-    if (scrollCount === 2 && e.detail.scrollTop > (windowHeight / 8 * (scrollCount - 1))) {
-        this.setState({
+    if (
+      scrollCount === 2 &&
+      e.detail.scrollTop > (windowHeight / 8) * (scrollCount - 1)
+    ) {
+      this.setState(
+        {
           scrollCount: scrollCount + 1
-        }, () => {
-        this.setState({
-          bookDirectory: bookAllDirectory.slice(0, 20 * scrollCount)
-        })
-      })
-    }
-    if (e.detail.scrollTop > (windowHeight / 5 * (scrollCount - 1))) {
-      this.setState({
-        scrollCount: scrollCount + 1
-      }, () => {
-        if (scrollCount * 20 < bookAllDirectory.length) {
+        },
+        () => {
           this.setState({
             bookDirectory: bookAllDirectory.slice(0, 20 * scrollCount)
           })
-        } else {
-          this.setState({
-            bookDirectory: bookAllDirectory
-          })
         }
-      })
+      )
+    }
+    if (e.detail.scrollTop > (windowHeight / 5) * (scrollCount - 1)) {
+      this.setState(
+        {
+          scrollCount: scrollCount + 1
+        },
+        () => {
+          if (scrollCount * 20 < bookAllDirectory.length) {
+            this.setState({
+              bookDirectory: bookAllDirectory.slice(0, 20 * scrollCount)
+            })
+          } else {
+            this.setState({
+              bookDirectory: bookAllDirectory
+            })
+          }
+        }
+      )
     }
   }
 
@@ -206,24 +218,31 @@ export default class BookRead extends Component {
           onLongPress={this.toggleBottomSheet}
           style={
             modeIndex === 0
-            ? 'background-color: #f2eeeb'
-            : (modeIndex === 1 ? 'background-color: #191919' : 'background-color: #c8edcc')
+              ? 'background-color: #f2eeeb'
+              : modeIndex === 1
+              ? 'background-color: #191919'
+              : 'background-color: #c8edcc'
           }
         >
-          <View style={{padding: '20PX 10PX'}}>
-            <View className='read-title'
-              style={modeIndex === 1
-                ? `color: rgb(104, 104, 104); font-size: ${14 + fontIndex * 2}PX`
-                : `font-size: ${14 + fontIndex * 2}PX`
+          <View style={{ padding: '20PX 10PX' }}>
+            <View
+              className='read-title'
+              style={
+                modeIndex === 1
+                  ? `color: rgb(104, 104, 104); font-size: ${14 +
+                      fontIndex * 2}PX`
+                  : `font-size: ${14 + fontIndex * 2}PX`
               }
             >
               {chapterContent.title}
             </View>
             <View className='read-content'>
               <Text
-                style={modeIndex === 1
-                  ? `color: rgb(100, 100, 100); font-size: ${12 + fontIndex * 2}PX`
-                  : `font-size: ${12 + fontIndex * 2}PX`
+                style={
+                  modeIndex === 1
+                    ? `color: rgb(100, 100, 100); font-size: ${12 +
+                        fontIndex * 2}PX`
+                    : `font-size: ${12 + fontIndex * 2}PX`
                 }
               >
                 {chapterContent.cpContent}
@@ -238,12 +257,19 @@ export default class BookRead extends Component {
               </View>
               <View className='action-last'>
                 <View
-                  className={currentIndex === 0 ? 'prev-chapter disabled' : 'prev-chapter'}
+                  className={
+                    currentIndex === 0
+                      ? 'prev-chapter disabled'
+                      : 'prev-chapter'
+                  }
                   onClick={this.getChapterContent.bind(this, currentIndex - 1)}
                 >
                   <Text>上一章</Text>
                 </View>
-                <View className='read-director' onClick={this.toggleDirectoryDrawer}>
+                <View
+                  className='read-director'
+                  onClick={this.toggleDirectoryDrawer}
+                >
                   <Text>目录</Text>
                 </View>
               </View>
@@ -252,40 +278,51 @@ export default class BookRead extends Component {
 
           <View
             className='bottom-sheet'
-            style={showBottomSheet
-              ? 'display: block; height: 190PX;'
-              : 'height: 0'
+            style={
+              showBottomSheet ? 'display: block; height: 190PX;' : 'height: 0'
             }
           >
             <View className='read-font'>
-              <View className='font-decrease' onClick={this.changeFont.bind(this, fontIndex - 1)}>
+              <View
+                className='font-decrease'
+                onClick={this.changeFont.bind(this, fontIndex - 1)}
+              >
                 <Text>Aa-</Text>
               </View>
               <View className='font-line'>
                 <View
                   className='progress-line'
-                  style={{width: `${fontIndex * 20}%`}}
+                  style={{ width: `${fontIndex * 20}%` }}
                 />
               </View>
-              <View className='font-increase' onClick={this.changeFont.bind(this, fontIndex + 1)}>
+              <View
+                className='font-increase'
+                onClick={this.changeFont.bind(this, fontIndex + 1)}
+              >
                 <Text>Aa+</Text>
               </View>
             </View>
             <View className='read-mode'>
               <View
-                className={modeIndex === 0 ? 'mode-default mode-actived' : 'mode-default'}
+                className={
+                  modeIndex === 0 ? 'mode-default mode-actived' : 'mode-default'
+                }
                 onClick={this.changeMode.bind(this, 0, '#f2eeeb')}
               >
                 <Text>默认</Text>
               </View>
               <View
-                className={modeIndex === 1 ? 'mode-night mode-actived' : 'mode-night'}
+                className={
+                  modeIndex === 1 ? 'mode-night mode-actived' : 'mode-night'
+                }
                 onClick={this.changeMode.bind(this, 1, '#191919')}
               >
                 <Text>夜间</Text>
               </View>
               <View
-                className={modeIndex === 2 ? 'mode-eye mode-actived' : 'mode-eye'}
+                className={
+                  modeIndex === 2 ? 'mode-eye mode-actived' : 'mode-eye'
+                }
                 onClick={this.changeMode.bind(this, 2, '#c8edcc')}
               >
                 <Text>护眼</Text>
@@ -296,16 +333,31 @@ export default class BookRead extends Component {
                 className='prev-chapter'
                 onClick={this.getChapterContent.bind(this, currentIndex - 1)}
               >
-                <Text style={currentIndex === 0 ? 'color: rgb(124, 124, 124)' : ''}>上一章</Text>
+                <Text
+                  style={currentIndex === 0 ? 'color: rgb(124, 124, 124)' : ''}
+                >
+                  上一章
+                </Text>
               </View>
-              <View className='book-director' onClick={this.toggleDirectoryDrawer}>
+              <View
+                className='book-director'
+                onClick={this.toggleDirectoryDrawer}
+              >
                 <Text>目录</Text>
               </View>
               <View
                 className='next-chapter'
                 onClick={this.getChapterContent.bind(this, currentIndex + 1)}
               >
-                <Text style={currentIndex === bookAllDirectory.length ? 'color: rgb(124, 124, 124)' : ''}>下一章</Text>
+                <Text
+                  style={
+                    currentIndex === bookAllDirectory.length
+                      ? 'color: rgb(124, 124, 124)'
+                      : ''
+                  }
+                >
+                  下一章
+                </Text>
               </View>
             </View>
           </View>
@@ -317,32 +369,33 @@ export default class BookRead extends Component {
             onClose={this.toggleDirectoryDrawer}
             width='80%'
           >
-              <View className='drawer-title'>
-                {this.$router.params.bookTitle}
-              </View>
-              <ScrollView
-                className='drawer-item'
-                scrollY
-                scrollTop='0'
-                style={`height: ${windowHeight}px`}
-                onScroll={this.onScroll}
-              >
-                <AtList>
-                  {
-                    showDirectory && bookDirectory.map((item, index) => {
-                      return (
-                        <AtListItem
-                          key={item._id}
-                          title={item.title}
-                          className={index === currentIndex ? 'drawer-actived' : ''}
-                          onClick={this.jumpToChapter.bind(this, index)}
-                        />
-                      )
-                    })
-                  }
-                </AtList>
-              </ScrollView>
-            </AtDrawer>
+            <View className='drawer-title'>
+              {this.$router.params.bookTitle}
+            </View>
+            <ScrollView
+              className='drawer-item'
+              scrollY
+              scrollTop='0'
+              style={`height: ${windowHeight}px`}
+              onScroll={this.onScroll}
+            >
+              <AtList>
+                {showDirectory &&
+                  bookDirectory.map((item, index) => {
+                    return (
+                      <AtListItem
+                        key={item._id}
+                        title={item.title}
+                        className={
+                          index === currentIndex ? 'drawer-actived' : ''
+                        }
+                        onClick={this.jumpToChapter.bind(this, index)}
+                      />
+                    )
+                  })}
+              </AtList>
+            </ScrollView>
+          </AtDrawer>
         </View>
       )
     }

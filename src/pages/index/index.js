@@ -1,18 +1,18 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components';
-import { AtSearchBar } from 'taro-ui';
-import List from '../../components/list/list';
-import ListSimple from '../../components/listSimple/';
-import { request } from '../../utils';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
+import { AtSearchBar } from 'taro-ui'
+import List from '../../components/list/list'
+import ListSimple from '../../components/listSimple/'
+import { request } from '../../utils'
+import './index.scss'
 
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '书城'
-  };
+  }
 
   constructor() {
-    super(...arguments);
+    super(...arguments)
 
     this.state = {
       searchVal: '',
@@ -20,36 +20,36 @@ export default class Index extends Component {
       bookList: [],
       recommendBooks: [],
       loading: true
-    };
+    }
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData()
   }
 
   onChange = value => {
     this.setState({
       searchVal: value
-    });
-  };
+    })
+  }
 
   getData() {
     const getRecommendInfo = request({
       url: '/rapi/mweb/home'
-    });
+    })
     const getBookList = request({
       url: '/rapi/book-list'
-    });
+    })
     const getRecommendList = request({
       url: '/rapi/recommendPage/node/books/all/57832d5ebe9f970e3dc4270d',
       data: {
         size: 4
       }
-    });
+    })
 
     Taro.showLoading({
       title: '加载中'
-    });
+    })
 
     Promise.all([getRecommendInfo, getBookList, getRecommendList])
       .then(resList => {
@@ -58,40 +58,40 @@ export default class Index extends Component {
           bookList: resList[1].bookLists.slice(0, 4),
           recommendBooks: resList[2].data,
           loading: false
-        });
-        Taro.hideLoading();
+        })
+        Taro.hideLoading()
       })
       .catch(err => {
-        throw err;
-      });
+        throw err
+      })
   }
 
   showAllBookList = () => {
     Taro.navigateTo({
       url: `/subpages/showAll/bookList/index`
-    });
-  };
+    })
+  }
 
   showBookListDetail(bookListId) {
     Taro.navigateTo({
       url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
-    });
+    })
   }
 
   showFeatured(nodes) {
-    let dataTag = [];
+    let dataTag = []
     nodes.map(item => {
       dataTag.push({
         id: item._id,
         title: item.title,
         sex: item.sex,
         bookType: item.bookType
-      });
-    });
-    dataTag = JSON.stringify(dataTag);
+      })
+    })
+    dataTag = JSON.stringify(dataTag)
     Taro.navigateTo({
       url: `/subpages/showAll/featuredList/index?dataTag=${dataTag}`
-    });
+    })
   }
 
   showRanking = () => {
@@ -113,7 +113,7 @@ export default class Index extends Component {
       recommendBooks,
       searchVal,
       loading
-    } = this.state;
+    } = this.state
     let rankingLimit = null
     if (ranking) {
       rankingLimit = ranking.slice(0, 4)
@@ -171,7 +171,9 @@ export default class Index extends Component {
           <View className='layout-list'>
             <View className='layout-header'>
               <Text className='header-text'>排行榜</Text>
-              <Text className='view-more' onClick={this.showRanking}>查看更多</Text>
+              <Text className='view-more' onClick={this.showRanking}>
+                查看更多
+              </Text>
             </View>
             {rankingLimit &&
               rankingLimit.map(item => (
@@ -197,15 +199,17 @@ export default class Index extends Component {
             {recommendBooks &&
               recommendBooks.map(item => {
                 const { book } = item
-                return <List
-                  key={item.id}
-                  data={book}
-                  onShowDetail={this.jumpBookDetailPage.bind(this, book._id)}
-                />
+                return (
+                  <List
+                    key={item.id}
+                    data={book}
+                    onShowDetail={this.jumpBookDetailPage.bind(this, book._id)}
+                  />
+                )
               })}
           </View>
         </View>
-      );
+      )
     }
   }
 }

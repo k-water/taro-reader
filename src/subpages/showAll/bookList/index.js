@@ -1,12 +1,12 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View } from '@tarojs/components';
-import { AtTag } from 'taro-ui';
-import List from '../../../components/list/list';
-import { request } from '../../../utils';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import { AtTag } from 'taro-ui'
+import List from '../../../components/list/list'
+import { request } from '../../../utils'
+import './index.scss'
 
-const tagLv1 = ['本周最热', '最新发布', '最多收藏'];
-const tagLv2 = ['全部', '言情', '历史', '都市'];
+const tagLv1 = ['本周最热', '最新发布', '最多收藏']
+const tagLv2 = ['全部', '言情', '历史', '都市']
 
 const lv1Params = {
   本周最热: {
@@ -21,7 +21,7 @@ const lv1Params = {
     duration: 'all',
     sort: 'collectorCount'
   }
-};
+}
 
 let data = {
   duration: 'last-seven-days',
@@ -30,14 +30,14 @@ let data = {
   gender: '',
   start: 0,
   limit: 20
-};
+}
 export default class BookListAll extends Component {
   config = {
     navigationBarTitleText: '主题书单'
-  };
+  }
 
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       currentLv1Tag: 0,
       currentLv2Tag: 0,
@@ -46,12 +46,12 @@ export default class BookListAll extends Component {
       isLoading: true,
       bookTags: [],
       bookList: []
-    };
+    }
   }
 
   componentDidMount() {
-    this.getBookTags();
-    this.getBookList(data);
+    this.getBookTags()
+    this.getBookList(data)
   }
 
   getBookTags = () => {
@@ -61,12 +61,12 @@ export default class BookListAll extends Component {
       .then(res => {
         this.setState({
           bookTags: res.data
-        });
+        })
       })
       .catch(err => {
-        throw err;
-      });
-  };
+        throw err
+      })
+  }
 
   getBookList = params => {
     Taro.showLoading({
@@ -80,68 +80,68 @@ export default class BookListAll extends Component {
         this.setState({
           bookList: res.bookLists,
           isLoading: false
-        });
+        })
         Taro.hideLoading()
       })
       .catch(err => {
-        throw err;
-      });
-  };
+        throw err
+      })
+  }
 
   handleLv1Tag(index) {
     this.setState({
       currentLv1Tag: index,
       isLoading: true
-    });
-    data = Object.assign(data, lv1Params[tagLv1[index]]);
+    })
+    data = Object.assign(data, lv1Params[tagLv1[index]])
 
-    this.getBookList(data);
+    this.getBookList(data)
   }
 
   handleLv2Tag(index) {
     this.setState({
       currentLv2Tag: index,
       isLoading: true
-    });
-    let temp = null;
+    })
+    let temp = null
     if (tagLv2[index] === '全部') {
-      temp = '';
+      temp = ''
       this.setState({
         currentDetailTagName: ''
-      });
+      })
     } else {
-      temp = tagLv2[index];
+      temp = tagLv2[index]
     }
     data = Object.assign(data, {
       tag: temp
-    });
+    })
 
-    this.getBookList(data);
+    this.getBookList(data)
   }
 
   handleDetailTag(val) {
     this.setState({
       currentDetailTagName: val,
       isShow: !this.state.isShow
-    });
-    tagLv2.splice(1, 1, val);
-    this.handleLv2Tag(1);
+    })
+    tagLv2.splice(1, 1, val)
+    this.handleLv2Tag(1)
     data = Object.assign(data, {
       tag: val
-    });
-    this.getBookList(data);
+    })
+    this.getBookList(data)
   }
 
   showFilter = () => {
     this.setState({
       isShow: !this.state.isShow
-    });
-  };
+    })
+  }
 
   showBookList(bookListId) {
     Taro.navigateTo({
       url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
-    });
+    })
   }
 
   render() {
@@ -153,7 +153,7 @@ export default class BookListAll extends Component {
       bookTags,
       currentDetailTagName,
       bookList
-    } = this.state;
+    } = this.state
     return (
       <View className='book-list-wrap'>
         <View className='filter-lv1'>
@@ -233,6 +233,6 @@ export default class BookListAll extends Component {
           </View>
         )}
       </View>
-    );
+    )
   }
 }

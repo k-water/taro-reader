@@ -1,16 +1,16 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
-import { AtRate, AtIcon, AtAvatar } from 'taro-ui';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Image, Text } from '@tarojs/components'
+import { AtRate, AtIcon, AtAvatar } from 'taro-ui'
 import { request, getDateDiff } from '../../../utils'
-import './index.scss';
+import './index.scss'
 
 export default class BookDetail extends Component {
   config = {
     navigationBarTitleText: ''
-  };
+  }
 
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       bookInfo: {},
       bookReview: [],
@@ -42,16 +42,17 @@ export default class BookDetail extends Component {
     Taro.showLoading({
       title: '加载中...'
     })
-    Promise.all([getBookInfo, getBookReview, getRecommendBook])
-      .then(resList => {
+    Promise.all([getBookInfo, getBookReview, getRecommendBook]).then(
+      resList => {
         this.setState({
           bookInfo: resList[0],
           bookReview: resList[1].reviews,
           bookRecommend: resList[2].books,
           isLoading: false
-        });
+        })
         Taro.hideLoading()
-      })
+      }
+    )
   }
 
   showMoreReview = async () => {
@@ -68,18 +69,22 @@ export default class BookDetail extends Component {
     const temp = this.state.bookReview.concat(res.reviews)
     this.setState({
       bookReview: temp
-    });
+    })
   }
 
   jumpMoreInfoPage = () => {
     Taro.navigateTo({
-      url: `/subpages/details/bookInfo/index?bookId=${this.$router.params.bookId}`
+      url: `/subpages/details/bookInfo/index?bookId=${
+        this.$router.params.bookId
+      }`
     })
   }
 
   jumpReadPage = () => {
     Taro.navigateTo({
-      url: `/subpages/book/read/index?bookId=${this.$router.params.bookId}&bookTitle=${this.state.bookInfo.title}`
+      url: `/subpages/book/read/index?bookId=${
+        this.$router.params.bookId
+      }&bookTitle=${this.state.bookInfo.title}`
     })
   }
 
@@ -98,28 +103,20 @@ export default class BookDetail extends Component {
           {/* 基本信息 */}
           <View className='book-detail'>
             <View className='book-cover'>
-              <Image
-                mode='aspectFill'
-                src={`${ImageUrl}${bookInfo.cover}`}
-              />
+              <Image mode='aspectFill' src={`${ImageUrl}${bookInfo.cover}`} />
             </View>
             <View className='book-info'>
-              <Text className='book-title'>
-                {bookInfo.title}
-              </Text>
+              <Text className='book-title'>{bookInfo.title}</Text>
               <View className='book-author'>
                 <AtIcon
                   value='check-circle'
                   color='rgb(23, 134, 251)'
                   size='15'
-                  customStyle={{marginRight: '2PX'}}
-                >
-                </AtIcon>
+                  customStyle={{ marginRight: '2PX' }}
+                />
                 {bookInfo.author}
               </View>
-              <View className='book-desc'>
-                {bookInfo.longIntro}
-              </View>
+              <View className='book-desc'>{bookInfo.longIntro}</View>
               <View className='book-more' onClick={this.jumpMoreInfoPage}>
                 更多
               </View>
@@ -133,12 +130,10 @@ export default class BookDetail extends Component {
                 <AtRate
                   size='17'
                   value={Math.ceil(bookInfo.rating.score * 10) / 10 / 2}
-                  customStyle={{margin: '0 0 3PX 8PX'}}
+                  customStyle={{ margin: '0 0 3PX 8PX' }}
                 />
               </View>
-              <View className='rank-text'>
-                {bookInfo.rating.count}人点评
-              </View>
+              <View className='rank-text'>{bookInfo.rating.count}人点评</View>
             </View>
             <View className='book-follower'>
               <Text>{bookInfo.latelyFollower}</Text>
@@ -147,15 +142,13 @@ export default class BookDetail extends Component {
           </View>
           {/* 书籍点评 */}
           <View className='book-review'>
-            <View className='review-header'>
-              精彩点评
-            </View>
+            <View className='review-header'>精彩点评</View>
             <View className='review-container'>
-              {
-                bookReview && bookReview.map(item => {
+              {bookReview &&
+                bookReview.map(item => {
                   const { author } = item
                   return (
-                    <View key={item._id} style={{marginBottom: '10PX'}}>
+                    <View key={item._id} style={{ marginBottom: '10PX' }}>
                       <View className='review-info'>
                         <View className='info-left'>
                           <View className='info-avatar'>
@@ -166,11 +159,12 @@ export default class BookDetail extends Component {
                                 width: '36PX',
                                 height: '36PX'
                               }}
-                            >
-                            </AtAvatar>
+                            />
                           </View>
                           <View className='info-author'>
-                            <Text className='author-name'>{author.nickname}</Text>
+                            <Text className='author-name'>
+                              {author.nickname}
+                            </Text>
                             <Text className='author-time'>
                               {getDateDiff(item.updated)}
                             </Text>
@@ -178,11 +172,7 @@ export default class BookDetail extends Component {
                         </View>
                         <View className='info-right'>
                           <View className='info-rating'>
-                            <AtRate
-                              size='15'
-                              value={item.rating}
-                            >
-                            </AtRate>
+                            <AtRate size='15' value={item.rating} />
                           </View>
                           <View className='info-like'>
                             {item.likeCount}人觉得有用
@@ -190,27 +180,37 @@ export default class BookDetail extends Component {
                         </View>
                       </View>
                       <View className='review-text'>
-                        <View className='review-title'>
-                          {item.title}
-                        </View>
-                        <View className='review-content' style={item.content.length > 110 ? 'text-align: left' : ''}>
+                        <View className='review-title'>{item.title}</View>
+                        <View
+                          className='review-content'
+                          style={
+                            item.content.length > 110 ? 'text-align: left' : ''
+                          }
+                        >
                           {item.content}
                         </View>
                       </View>
                       <View className='review-extend'>
                         <View className='review-like'>
-                          <AtIcon value='heart' size='18' color='rgb(151, 155, 158)'></AtIcon>
+                          <AtIcon
+                            value='heart'
+                            size='18'
+                            color='rgb(151, 155, 158)'
+                          />
                           <Text>{item.likeCount}</Text>
                         </View>
                         <View className='review-comment'>
-                          <AtIcon value='message' size='18' color='rgb(151, 155, 158)'></AtIcon>
+                          <AtIcon
+                            value='message'
+                            size='18'
+                            color='rgb(151, 155, 158)'
+                          />
                           <Text>{item.commentCount}</Text>
                         </View>
                       </View>
                     </View>
                   )
-                })
-              }
+                })}
               <View className='review-more' onClick={this.showMoreReview}>
                 展开更多点评
               </View>
@@ -218,12 +218,10 @@ export default class BookDetail extends Component {
           </View>
           {/* 书籍推荐 */}
           <View className='book-recommend'>
-            <View className='recommend-header'>
-              书籍推荐
-            </View>
+            <View className='recommend-header'>书籍推荐</View>
             <View className='recommend-content'>
-              {
-                bookRecommend && bookRecommend.slice(0, 6).map(item => {
+              {bookRecommend &&
+                bookRecommend.slice(0, 6).map(item => {
                   return (
                     <View
                       key={item._id}
@@ -234,27 +232,17 @@ export default class BookDetail extends Component {
                         mode='aspectFill'
                         src={`${ImageUrl}${item.cover}`}
                       />
-                      <Text className='reacommend-title'>
-                        {item.title}
-                      </Text>
-                      <Text className='recommend-author'>
-                        {item.author}
-                      </Text>
+                      <Text className='reacommend-title'>{item.title}</Text>
+                      <Text className='recommend-author'>{item.author}</Text>
                     </View>
                   )
-                })
-              }
+                })}
             </View>
           </View>
           {/* 书籍操作 */}
           <View className='book-action'>
-            <View className='book-add'>
-              加入书架
-            </View>
-            <View
-              className='book-read'
-              onClick={this.jumpReadPage}
-            >
+            <View className='book-add'>加入书架</View>
+            <View className='book-read' onClick={this.jumpReadPage}>
               开始阅读
             </View>
           </View>

@@ -1,11 +1,11 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Image } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './list.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Image } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './list.scss'
 
 export default class List extends Component {
   constructor() {
-    super(...arguments);
+    super(...arguments)
   }
   static defaultProps = {
     data: {
@@ -19,8 +19,8 @@ export default class List extends Component {
   }
 
   render() {
-    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
-    const { data, styleCover } = this.props;
+    const ImageBaseUrl = 'http://statics.zhuishushenqi.com'
+    const { data, styleCover } = this.props
     return (
       <View
         className='list-container'
@@ -40,9 +40,11 @@ export default class List extends Component {
         </View>
         <View className='list-text'>
           <View className='list-title'>{data.title}</View>
-          <View className='list-desc'>{data.desc ? data.desc : data.shortIntro}</View>
+          <View className='list-desc'>
+            {data.desc ? data.desc : data.shortIntro}
+          </View>
         </View>
       </View>
-    );
+    )
   }
 }

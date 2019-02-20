@@ -1,33 +1,33 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View } from '@tarojs/components';
-import { AtAvatar } from 'taro-ui';
-import { request, getDateDiff } from '../../../utils';
-import ListSimple from '../../../components/listSimple/';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import { AtAvatar } from 'taro-ui'
+import { request, getDateDiff } from '../../../utils'
+import ListSimple from '../../../components/listSimple/'
+import './index.scss'
 
 export default class BookListDetail extends Component {
   config = {
     navigationBarTitleText: '书单详情'
-  };
+  }
 
   constructor() {
-    super(...arguments);
+    super(...arguments)
 
     this.state = {
       bookDetailList: {},
       isLoading: true
-    };
+    }
   }
 
   componentDidMount() {
-    this.getBookListData();
+    this.getBookListData()
   }
 
   getBookListData = () => {
     Taro.showLoading({
       title: '加载中'
-    });
-    const { bookListId } = this.$router.params;
+    })
+    const { bookListId } = this.$router.params
     request({
       url: `/rapi/book-list/${bookListId}`
     })
@@ -35,13 +35,13 @@ export default class BookListDetail extends Component {
         this.setState({
           bookDetailList: res.bookList,
           isLoading: false
-        });
-        Taro.hideLoading();
+        })
+        Taro.hideLoading()
       })
       .catch(err => {
-        throw err;
-      });
-  };
+        throw err
+      })
+  }
 
   goToBookDetail(bookId) {
     Taro.navigateTo({
@@ -50,9 +50,9 @@ export default class BookListDetail extends Component {
   }
 
   render() {
-    const { author, updated, title, desc, books } = this.state.bookDetailList;
-    const { isLoading } = this.state;
-    const ImageBaseUrl = 'http://statics.zhuishushenqi.com';
+    const { author, updated, title, desc, books } = this.state.bookDetailList
+    const { isLoading } = this.state
+    const ImageBaseUrl = 'http://statics.zhuishushenqi.com'
     if (!isLoading) {
       return (
         <View className='list-detail-container'>
@@ -76,17 +76,20 @@ export default class BookListDetail extends Component {
           <View className='book-content'>
             {books &&
               books.map(item => {
-                const { book } = item;
+                const { book } = item
                 return (
                   <View className='book-detail' key={book._id}>
-                    <ListSimple book={book}  onBookDetail={this.goToBookDetail.bind(this, book._id)} />
+                    <ListSimple
+                      book={book}
+                      onBookDetail={this.goToBookDetail.bind(this, book._id)}
+                    />
                     <View className='book-comment'>{item.comment}</View>
                   </View>
-                );
+                )
               })}
           </View>
         </View>
-      );
+      )
     }
   }
 }
