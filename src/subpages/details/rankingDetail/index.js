@@ -86,6 +86,12 @@ export default class Ranking extends Component {
         );
   }
 
+  jumpBookDetailPage(bookId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookDetail/index?bookId=${bookId}`
+    })
+  }
+
   render() {
     const {
       isLoading,
@@ -126,7 +132,7 @@ export default class Ranking extends Component {
             {!isLoading &&
               books &&
               books.map(book => (
-                <View className='book-intro' key={book._id}>
+                <View className='book-intro' key={book._id} onClick={this.jumpBookDetailPage.bind(this, book._id)}>
                   <View className='book-cover'>
                     <Image
                       mode='aspectFill'

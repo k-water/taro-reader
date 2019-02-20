@@ -102,6 +102,12 @@ export default class Detail extends Component {
       });
   };
 
+  jumpBookDetailPage(bookId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookDetail/index?bookId=${bookId}`
+    })
+  }
+
   render() {
     const {
       currentClassify: { mins },
@@ -129,7 +135,7 @@ export default class Detail extends Component {
         <View className='detail-container'>
           {!isLoading && bookList.length > 0 ? (
             bookList.map(item => (
-              <View className='detail-book' key={item._id}>
+              <View className='detail-book' key={item._id} onClick={this.jumpBookDetailPage.bind(this, item._id)}>
                 <View className='detail-cover'>
                   <Image
                     mode='aspectFill'

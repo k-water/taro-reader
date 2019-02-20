@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import { AtSearchBar, Swiper, SwiperItem } from 'taro-ui';
+import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components';
+import { AtSearchBar } from 'taro-ui';
 import List from '../../components/list/list';
 import ListSimple from '../../components/listSimple/';
 import { request } from '../../utils';
@@ -66,13 +66,13 @@ export default class Index extends Component {
       });
   }
 
-  showMore = () => {
+  showAllBookList = () => {
     Taro.navigateTo({
       url: `/subpages/showAll/bookList/index`
     });
   };
 
-  showBookList(bookListId) {
+  showBookListDetail(bookListId) {
     Taro.navigateTo({
       url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
     });
@@ -100,11 +100,18 @@ export default class Index extends Component {
     })
   }
 
+  jumpBookDetailPage(bookId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookDetail/index?bookId=${bookId}`
+    })
+  }
+
   render() {
     const {
       swpierData: { spread, nodes, ranking },
       bookList,
       recommendBooks,
+      searchVal,
       loading
     } = this.state;
     let rankingLimit = null
@@ -115,7 +122,7 @@ export default class Index extends Component {
       return (
         <View className='index-wrap'>
           <AtSearchBar
-            value={this.state.searchVal}
+            value={searchVal}
             fixed
             placeholder='搜索书籍'
             onChange={this.onChange}
@@ -147,7 +154,7 @@ export default class Index extends Component {
           <View className='layout-list'>
             <View className='layout-header'>
               <Text className='header-text'>热门书单</Text>
-              <Text className='view-more' onClick={this.showMore}>
+              <Text className='view-more' onClick={this.showAllBookList}>
                 查看更多
               </Text>
             </View>
@@ -156,7 +163,7 @@ export default class Index extends Component {
                 <List
                   key={item._id}
                   data={item}
-                  onShowDetail={this.showBookList.bind(this, item._id)}
+                  onShowDetail={this.showBookListDetail.bind(this, item._id)}
                 />
               ))}
           </View>
@@ -172,6 +179,7 @@ export default class Index extends Component {
                   book={item}
                   key={item._id}
                   customStyle={{ margin: '10PX 0 0 15PX' }}
+                  onBookDetail={this.jumpBookDetailPage.bind(this, item._id)}
                 />
               ))}
           </View>
@@ -188,8 +196,12 @@ export default class Index extends Component {
             </View>
             {recommendBooks &&
               recommendBooks.map(item => {
-                const { book } = item;
-                return <List key={item.id} data={book} />;
+                const { book } = item
+                return <List
+                  key={item.id}
+                  data={book}
+                  onShowDetail={this.jumpBookDetailPage.bind(this, book._id)}
+                />
               })}
           </View>
         </View>

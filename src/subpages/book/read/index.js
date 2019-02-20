@@ -44,8 +44,8 @@ export default class BookRead extends Component {
     Taro.showLoading({
       title: '加载中...'
     })
-    // const { bookId } = this.$router.params
-    const bookId = '5acf0f68e098180e008227b2'
+    const { bookId } = this.$router.params
+    // const bookId = '5acf0f68e098180e008227b2'
     const getDirectoryId = await request({
       url: '/rapi/btoc',
       data: {
@@ -187,7 +187,18 @@ export default class BookRead extends Component {
   }
 
   render() {
-    const { chapterContent, isLoading, currentIndex, showDirectory, bookDirectory, windowHeight, showBottomSheet, bookAllDirectory, modeIndex, fontIndex } = this.state
+    const {
+      chapterContent,
+      isLoading,
+      currentIndex,
+      showDirectory,
+      bookDirectory,
+      windowHeight,
+      showBottomSheet,
+      bookAllDirectory,
+      modeIndex,
+      fontIndex
+    } = this.state
     if (!isLoading) {
       return (
         <View

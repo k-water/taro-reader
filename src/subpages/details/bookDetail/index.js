@@ -24,8 +24,8 @@ export default class BookDetail extends Component {
   }
 
   getInitData = () => {
-    // const { bookId } = this.$router.params
-    const bookId = '5acf0f68e098180e008227b2'
+    const { bookId } = this.$router.params
+    // const bookId = '5acf0f68e098180e008227b2'
     const getBookInfo = request({
       url: `/rapi/book/${bookId}`
     })
@@ -39,7 +39,9 @@ export default class BookDetail extends Component {
     const getRecommendBook = request({
       url: `/rapi/book/${bookId}/recommend`
     })
-    Taro.showLoading('加载中...')
+    Taro.showLoading({
+      title: '加载中...'
+    })
     Promise.all([getBookInfo, getBookReview, getRecommendBook])
       .then(resList => {
         this.setState({
@@ -53,8 +55,8 @@ export default class BookDetail extends Component {
   }
 
   showMoreReview = async () => {
-    // const { bookId } = this.$router.params
-    const bookId = '5acf0f68e098180e008227b2'
+    const { bookId } = this.$router.params
+    // const bookId = '5acf0f68e098180e008227b2'
     const res = await request({
       url: '/rapi/post/review/by-book',
       data: {
@@ -78,6 +80,12 @@ export default class BookDetail extends Component {
   jumpReadPage = () => {
     Taro.navigateTo({
       url: `/subpages/book/read/index?bookId=${this.$router.params.bookId}&bookTitle=${this.state.bookInfo.title}`
+    })
+  }
+
+  jumpToDetailPage(bookId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookDetail/index?bookId=${bookId}`
     })
   }
 
@@ -217,7 +225,11 @@ export default class BookDetail extends Component {
               {
                 bookRecommend && bookRecommend.slice(0, 6).map(item => {
                   return (
-                    <View key={item._id} className='recommend-info'>
+                    <View
+                      key={item._id}
+                      className='recommend-info'
+                      onClick={this.jumpToDetailPage.bind(this, item._id)}
+                    >
                       <Image
                         mode='aspectFill'
                         src={`${ImageUrl}${item.cover}`}

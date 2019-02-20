@@ -54,6 +54,12 @@ export default class FeaturedList extends Component {
       });
   };
 
+  jumpBookDetailPage(bookId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookDetail/index?bookId=${bookId}`
+    })
+  }
+
   render() {
     let { dataTag } = this.$router.params;
     const { currentIndex, isLoading, bookList } = this.state;
@@ -75,7 +81,7 @@ export default class FeaturedList extends Component {
           {!isLoading &&
             bookList.map(item => {
               const { book } = item;
-              return <List key={item._id} data={book} />;
+              return <List key={item._id} data={book}  onShowDetail={this.jumpBookDetailPage.bind(this, book._id)} />;
             })}
         </View>
       </View>
