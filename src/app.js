@@ -7,10 +7,11 @@ import './app.scss'
 class App extends Component {
   config = {
     pages: [
+      'pages/person/index',
       'pages/index/index',
       'pages/class/index',
       'pages/book/index',
-      'pages/person/index'
+      // 'pages/person/index'
     ],
     subpackages: [
       {
@@ -30,6 +31,10 @@ class App extends Component {
       {
         root: 'subpages/book/',
         pages: ['read/index']
+      },
+      {
+        root: 'subpages/auth',
+        pages: ['authUser/index']
       }
     ],
     window: {

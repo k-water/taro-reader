@@ -24,12 +24,24 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
+    this.checkAuth()
     this.getData()
   }
 
   onChange = value => {
     this.setState({
       searchVal: value
+    })
+  }
+  checkAuth() {
+    Taro.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          Taro.navigateTo({
+            url: '/subpages/auth/authUser/index'
+          })
+        }
+      }
     })
   }
 

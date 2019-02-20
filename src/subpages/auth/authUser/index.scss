@@ -1,0 +1,32 @@
+.auth-container {
+  .auth-cover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    Image {
+      width: 300PX;
+      height: 300PX;
+    }
+  }
+  .auth-tips {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20PX 20%;
+    Text {
+      font-size: 16PX;
+      text-align: justify;
+    }
+  }
+  .auth-aciton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20PX 0;
+    Button {
+      width: 60%;
+      color: rgb(24, 144, 255);
+      border-color: rgb(24, 144, 255);
+    }
+  }
+}
