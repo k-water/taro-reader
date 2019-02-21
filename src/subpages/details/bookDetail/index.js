@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
 import { AtRate, AtIcon, AtAvatar } from 'taro-ui'
@@ -15,12 +16,16 @@ export default class BookDetail extends Component {
       bookInfo: {},
       bookReview: [],
       bookRecommend: [],
-      isLoading: true
+      isLoading: true,
+      bookStatus: false
     }
   }
 
   componentDidMount() {
     this.getInitData()
+  }
+  componentDidShow() {
+    this.checkBookStatus()
   }
 
   getInitData = () => {
@@ -94,9 +99,105 @@ export default class BookDetail extends Component {
     })
   }
 
+  checkBookStatus() {
+    const { bookId } = this.$router.params
+    // const bookId = '5acf0f68e098180e008227b2'
+    const self = this
+    wx.cloud
+      .callFunction({
+        name: 'findBook',
+        data: {
+          bookId
+        }
+      })
+      .then(res => {
+        if (res.result.data.length) {
+          self.setState({
+            bookStatus: true
+          })
+        }
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+
+  handleBookToStore = () => {
+    // check
+    const userInfo = Taro.getStorageSync('userInfo')
+    if (!userInfo) {
+      Taro.navigateTo({
+        url: '/subpages/auth/authUser/index'
+      })
+    } else {
+      const { bookStatus, bookInfo } = this.state
+      const userCertificate = Taro.getStorageSync('userCertificate')
+      const self = this
+      if (!bookStatus) {
+        Taro.showLoading({
+          title: '加载中...'
+        })
+        wx.cloud
+          .callFunction({
+            name: 'addBook',
+            data: {
+              title: bookInfo.title,
+              author: bookInfo.author,
+              cover: bookInfo.cover,
+              bookId: bookInfo._id,
+              openid: JSON.parse(userCertificate).openid
+            }
+          })
+          .then(() => {
+            Taro.hideLoading()
+            Taro.showToast({
+              title: '已加入',
+              icon: 'success'
+            })
+            self.setState({
+              bookStatus: true
+            })
+          })
+          .catch(err => {
+            throw err
+          })
+      } else {
+        Taro.showLoading({
+          title: '加载中...'
+        })
+        wx.cloud
+          .callFunction({
+            name: 'delBook',
+            data: {
+              bookId: bookInfo._id
+            }
+          })
+          .then(() => {
+            Taro.hideLoading()
+            Taro.showToast({
+              title: '已移出',
+              icon: 'success'
+            })
+            self.setState({
+              bookStatus: false
+            })
+          })
+          .catch(err => {
+            throw err
+          })
+      }
+    }
+  }
+
   render() {
     const ImageUrl = 'http://statics.zhuishushenqi.com'
-    const { bookInfo, bookReview, bookRecommend, isLoading } = this.state
+    const {
+      bookInfo,
+      bookReview,
+      bookRecommend,
+      isLoading,
+      bookStatus
+    } = this.state
     if (!isLoading) {
       return (
         <View className='book-container'>
@@ -241,7 +342,9 @@ export default class BookDetail extends Component {
           </View>
           {/* 书籍操作 */}
           <View className='book-action'>
-            <View className='book-add'>加入书架</View>
+            <View className='book-add' onClick={this.handleBookToStore}>
+              {bookStatus ? '移出书架' : '加入书架'}
+            </View>
             <View className='book-read' onClick={this.jumpReadPage}>
               开始阅读
             </View>

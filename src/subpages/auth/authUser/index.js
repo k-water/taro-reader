@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
 import { View, Button, Image, Text } from '@tarojs/components'
+import { AtToast } from 'taro-ui'
 import './index.scss'
 import bookAuth from '../../../static/image/book-auth.jpg'
 
@@ -11,9 +12,12 @@ export default class AuthLogin extends Component {
 
   constructor() {
     super(...arguments)
+    this.state = {
+      showToast: false
+    }
   }
 
-  componentWillMount() {
+  componentDidShow() {
     const self = this
     Taro.checkSession({
       success() {},
@@ -28,7 +32,7 @@ export default class AuthLogin extends Component {
     if (e.detail.rawData) {
       dertificateData = getStorageSync('userCertificate')
       Taro.setStorage({
-        key: e.detail.userInfo.nickName,
+        key: 'userInfo',
         data: e.detail.rawData
       })
       const {
@@ -54,8 +58,8 @@ export default class AuthLogin extends Component {
         })
         .then()
         .catch(err => {
-          Taro.showToast({
-            title: '网络错误'
+          this.setState({
+            showToast: true
           })
           throw err
         })
@@ -95,26 +99,32 @@ export default class AuthLogin extends Component {
   }
 
   render() {
+    const { showToast } = this.state
     return (
-      <View class='auth-container'>
-        <View className='auth-cover'>
-          <Image mode='aspectFill' src={bookAuth} />
-        </View>
-        <View className='auth-tips'>
-          <Text>
-            小样轻读需要获得您的头像昵称等基础信息，只会用于登录，不会用作其他用途，点击下方授权登录。
-          </Text>
-        </View>
-        <View className='auth-aciton'>
-          <Button
-            openType='getUserInfo'
-            plain
-            type='primary'
-            onGetUserInfo={this.getUserInfo}
-          >
-            授权给小样轻读
-          </Button>
-        </View>
+      <View>
+        {!showToast && (
+          <View class='auth-container'>
+            <View className='auth-cover'>
+              <Image mode='aspectFill' src={bookAuth} />
+            </View>
+            <View className='auth-tips'>
+              <Text>
+                小样轻读需要获得您的头像昵称等基础信息，只会用于登录，不会用作其他用途，点击下方授权登录。
+              </Text>
+            </View>
+            <View className='auth-aciton'>
+              <Button
+                openType='getUserInfo'
+                plain
+                type='primary'
+                onGetUserInfo={this.getUserInfo}
+              >
+                授权给小样轻读
+              </Button>
+            </View>
+          </View>
+        )}
+        <AtToast isOpened={showToast} text='网络错误' status='error' />
       </View>
     )
   }

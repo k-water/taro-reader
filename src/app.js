@@ -11,10 +11,11 @@ wx.cloud.init({
 class App extends Component {
   config = {
     pages: [
-      'pages/book/index',
+      // 'subpages/details/bookDetail/index',
+      // 'pages/book/index',
       'pages/index/index',
       'pages/class/index',
-      // 'pages/book/index',
+      'pages/book/index',
       'pages/person/index'
     ],
     subpackages: [
