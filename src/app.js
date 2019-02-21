@@ -4,14 +4,18 @@ import 'taro-ui/dist/style/index.scss'
 import Index from './pages/index'
 import './app.scss'
 
+// eslint-disable-next-line no-undef
+wx.cloud.init({
+  env: 'bookstore-27eae6'
+})
 class App extends Component {
   config = {
     pages: [
-      'pages/person/index',
+      'pages/book/index',
       'pages/index/index',
       'pages/class/index',
-      'pages/book/index',
-      // 'pages/person/index'
+      // 'pages/book/index',
+      'pages/person/index'
     ],
     subpackages: [
       {

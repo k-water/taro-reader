@@ -4,9 +4,6 @@ import { View, Button, Image, Text } from '@tarojs/components'
 import './index.scss'
 import bookAuth from '../../../static/image/book-auth.jpg'
 
-wx.cloud.init({
-  env: 'bookstore-27eae6'
-})
 export default class AuthLogin extends Component {
   config = {
     navigationBarTitleText: '授权登录'

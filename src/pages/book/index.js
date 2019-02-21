@@ -4,7 +4,6 @@ import { View } from '@tarojs/components'
 // import { WXBizDataCrypt } from '../../utils'
 import './index.scss'
 
-wx.cloud.init()
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '书架'
