@@ -1,30 +1,41 @@
+/* eslint-disable no-undef */
 import Taro, { Component } from '@tarojs/taro'
-import {
-  View
-} from '@tarojs/components'
-// import request from '../../utils'
+import { View } from '@tarojs/components'
+// import { WXBizDataCrypt } from '../../utils'
 import './index.scss'
 
+wx.cloud.init()
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '书架'
   }
 
-  constructor () {
+  constructor() {
     super(...arguments)
   }
 
-  componentDidMount () { }
+  componentDidMount() {}
 
-  componentWillUnmount () { }
+  componentDidShow() {
+    this.checkAuth()
+  }
 
-  componentDidShow () { }
+  checkAuth() {
+    Taro.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          Taro.navigateTo({
+            url: '/subpages/auth/authUser/index'
+          })
+        }
+      }
+    })
+  }
 
-  componentDidHide () { }
-
-  render () {
+  render() {
     return (
-      <View>书架</View>
+      <View className='book-store'>
+      </View>
     )
   }
 }
