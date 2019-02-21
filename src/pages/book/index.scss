@@ -1,0 +1,47 @@
+.book-store {
+  .book-header {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 15PX;
+    padding-bottom: 5PX;
+    .book-edit {
+      font-size: 16PX;
+      color: rgb(24, 144, 255);
+    }
+  }
+  .book-content {
+    padding: 10PX 15PX 20PX 15PX;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    .book-item {
+      align-self: center;
+      width: calc(100% / 3);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 10PX;
+    }
+    .book-cover {
+      margin: 0 auto;
+      Image {
+        width: 90PX;
+        height: 125PX;
+        border-radius: 3PX;
+        box-shadow: 1PX 1PX 1PX silver;
+      }
+    }
+    .book-info {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      .book-title {
+        font-size: 13PX;
+        padding-bottom: 2PX;
+      }
+      .book-author {
+        font-size: 11PX;
+        color: rgb(160, 164, 165);
+      }
+    }
+  }
+}

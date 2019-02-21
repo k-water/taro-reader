@@ -1,7 +1,5 @@
-/* eslint-disable no-undef */
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-// import { WXBizDataCrypt } from '../../utils'
+import { View, Image, Text } from '@tarojs/components'
 import './index.scss'
 
 export default class Index extends Component {
@@ -11,30 +9,105 @@ export default class Index extends Component {
 
   constructor() {
     super(...arguments)
+    this.state = {
+      storeBooks: [],
+      isLoading: true
+    }
   }
-
-  componentDidMount() {}
 
   componentDidShow() {
     this.checkAuth()
   }
 
+  componentDidHide() {
+    this.setState({
+      storeBooks: [],
+      isLoading: true
+    })
+  }
+
   checkAuth() {
+    const self = this
     Taro.getSetting({
       success(res) {
         if (!res.authSetting['scope.userInfo']) {
           Taro.navigateTo({
             url: '/subpages/auth/authUser/index'
           })
+        } else {
+          self.getStoreBooks()
         }
       }
     })
   }
 
+  getStoreBooks() {
+    Taro.showLoading({
+      title: '加载中...'
+    })
+    const self = this
+    const userCertificate = Taro.getStorageSync('userCertificate')
+    // eslint-disable-next-line no-undef
+    wx.cloud
+      .callFunction({
+        name: 'getBooks',
+        data: {
+          openid: JSON.parse(userCertificate).openid
+        }
+      })
+      .then(res => {
+        self.setState({
+          storeBooks: res.result.data,
+          isLoading: false
+        })
+        Taro.hideLoading()
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+
+  jumpReadBookPage(bookId, bookTitle) {
+    Taro.navigateTo({
+      url: `/subpages/book/read/index?bookId=${bookId}&bookTitle=${bookTitle}`
+    })
+  }
+
   render() {
-    return (
-      <View className='book-store'>
-      </View>
-    )
+    const { storeBooks, isLoading } = this.state
+    const baseImageUrl = 'http://statics.zhuishushenqi.com'
+    if (!isLoading) {
+      return (
+        <View className='book-store'>
+          <View className='book-header'>
+            <View className='book-edit'>
+              <Text>编辑</Text>
+            </View>
+          </View>
+          <View className='book-content'>
+            {storeBooks.map(item => {
+              return (
+                <View className='book-item' key={item._id} onClick={this.jumpReadBookPage.bind(this, item.bookId, item.title)}>
+                  <View className='book-cover'>
+                    <Image
+                      mode='aspectFill'
+                      src={`${baseImageUrl}${item.cover}`}
+                    />
+                  </View>
+                  <View className='book-info'>
+                    <View className='book-title'>
+                      <Text>{item.title}</Text>
+                    </View>
+                    <View className='book-author'>
+                      <Text>{item.author}</Text>
+                    </View>
+                  </View>
+                </View>
+              )
+            })}
+          </View>
+        </View>
+      )
+    }
   }
 }
