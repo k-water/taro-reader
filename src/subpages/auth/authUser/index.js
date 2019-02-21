@@ -18,19 +18,13 @@ export default class AuthLogin extends Component {
   }
 
   componentDidShow() {
-    const self = this
-    Taro.checkSession({
-      success() {},
-      fail() {
-        self.checkLogin()
-      }
-    })
+    this.checkLogin()
   }
 
   getUserInfo(e) {
-    let dertificateData = null
+    let certificateData = null
     if (e.detail.rawData) {
-      dertificateData = getStorageSync('userCertificate')
+      certificateData = getStorageSync('userCertificate')
       Taro.setStorage({
         key: 'userInfo',
         data: e.detail.rawData
@@ -53,7 +47,7 @@ export default class AuthLogin extends Component {
             country,
             avatarUrl,
             province,
-            openid: JSON.parse(dertificateData).openid
+            openid: JSON.parse(certificateData).openid
           }
         })
         .then()
