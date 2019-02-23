@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
-import { AtSearchBar } from 'taro-ui'
+import { AtIcon } from 'taro-ui'
 import List from '../../components/list/list'
 import ListSimple from '../../components/listSimple/'
 import { request } from '../../utils'
@@ -15,7 +15,6 @@ export default class Index extends Component {
     super(...arguments)
 
     this.state = {
-      searchVal: '',
       swpierData: [],
       bookList: [],
       recommendBooks: [],
@@ -28,11 +27,6 @@ export default class Index extends Component {
     this.getData()
   }
 
-  onChange = value => {
-    this.setState({
-      searchVal: value
-    })
-  }
   checkAuth() {
     Taro.getSetting({
       success(res) {
@@ -118,12 +112,17 @@ export default class Index extends Component {
     })
   }
 
+  jumpToSearchPage() {
+    Taro.navigateTo({
+      url: '/subpages/book/search/index'
+    })
+  }
+
   render() {
     const {
       swpierData: { spread, nodes, ranking },
       bookList,
       recommendBooks,
-      searchVal,
       loading
     } = this.state
     let rankingLimit = null
@@ -133,12 +132,12 @@ export default class Index extends Component {
     if (!loading) {
       return (
         <View className='index-wrap'>
-          <AtSearchBar
-            value={searchVal}
-            fixed
-            placeholder='搜索书籍'
-            onChange={this.onChange}
-          />
+          <View className='book-search' onClick={this.jumpToSearchPage}>
+            <View className='search-input'>
+              <AtIcon value='search' size='18' color='rgb(135, 142, 147)' />
+              <Text>搜索</Text>
+            </View>
+          </View>
           <View className='book-recommend'>
             <Swiper
               className='swiper-container'
