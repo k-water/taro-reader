@@ -87,20 +87,16 @@ export default class Index extends Component {
           <View className='book-content'>
             {storeBooks.map(item => {
               return (
-                <View className='book-item' key={item._id} onClick={this.jumpReadBookPage.bind(this, item.bookId, item.title)}>
-                  <View className='book-cover'>
-                    <Image
-                      mode='aspectFill'
-                      src={`${baseImageUrl}${item.cover}`}
-                    />
+                <View className='book-info' key={item._id} onClick={this.jumpReadBookPage.bind(this, item.bookId, item.title)}>
+                  <Image
+                    mode='aspectFill'
+                    src={`${baseImageUrl}${item.cover}`}
+                  />
+                  <View className='book-title'>
+                    {item.title}
                   </View>
-                  <View className='book-info'>
-                    <View className='book-title'>
-                      <Text>{item.title}</Text>
-                    </View>
-                    <View className='book-author'>
-                      <Text>{item.author}</Text>
-                    </View>
+                  <View className='book-author'>
+                    {item.author}
                   </View>
                 </View>
               )

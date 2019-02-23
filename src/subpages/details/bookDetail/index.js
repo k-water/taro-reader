@@ -333,7 +333,7 @@ export default class BookDetail extends Component {
                         mode='aspectFill'
                         src={`${ImageUrl}${item.cover}`}
                       />
-                      <Text className='reacommend-title'>{item.title}</Text>
+                      <Text className='recommend-title'>{item.title}</Text>
                       <Text className='recommend-author'>{item.author}</Text>
                     </View>
                   )
