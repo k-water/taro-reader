@@ -14,7 +14,8 @@ export default class BookSearchResult extends Component {
     super(...arguments)
     this.state = {
       books: [],
-      isLoading: true
+      isLoading: true,
+      pageStart: 1
     }
   }
 
@@ -39,7 +40,9 @@ export default class BookSearchResult extends Component {
     const getSearchResult = request({
       url: '/rapi/book/fuzzy-search',
       data: {
-        query: word
+        query: word,
+        start: 0,
+        limit: 10
       }
     })
     Promise.all([getSearchResult])
@@ -55,9 +58,38 @@ export default class BookSearchResult extends Component {
       })
   }
 
+  getSearchResult(start) {
+    const { word } = this.$router.params
+    const { books } = this.state
+    request({
+      url: '/rapi/book/fuzzy-search',
+      data: {
+        query: word,
+        start,
+        limit: 10
+      }
+    })
+      .then(res => {
+        this.setState({
+          books: books.concat(res.books)
+        })
+      })
+      .catch(err => {
+        throw(err)
+      })
+  }
+
   jumpToBookDetailPage(bookId) {
     Taro.navigateTo({
       url: `/subpages/details/bookDetail/index?bookId=${bookId}`
+    })
+  }
+
+  onReachBottom() {
+    let { pageStart } = this.state
+    this.getSearchResult(pageStart * 10)
+    this.setState({
+      pageStart: pageStart + 1
     })
   }
 
