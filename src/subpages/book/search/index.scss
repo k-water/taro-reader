@@ -1,0 +1,70 @@
+.search-container {
+  .book-search {
+    position: relative;
+    width: 100%;
+    height: 44PX;
+    background-color: #ffffff;
+    .search-icon {
+      position: absolute;
+      z-index: 100;
+      top: 10PX;
+      left: 23PX;
+    }
+    .at-input {
+      padding: 5PX 10PX 5PX 35PX;
+      margin: 3PX 10PX;
+      height: 26PX;
+      border: 1PX solid rgb(245, 249, 252);
+      background-color: rgb(245, 249, 252);
+      border-radius: 20PX;
+    }
+    .word-complete {
+      width: 100%;
+      position: absolute;
+      top: 44PX;
+      background-color: #ffffff;
+      z-index: 101;
+    }
+  }
+
+  .search-word {
+    padding: 10PX;
+    .header-tips {
+      padding: 10PX 5PX;
+      font-size: 18PX;
+    }
+    .at-tag {
+      margin: 0 8PX 8PX 0;
+    }
+  }
+
+  .search-history {
+    padding: 10PX;
+    .header-tips {
+      padding: 10PX 5PX;
+      display: flex;
+      justify-content: space-between;
+    }
+    .history-title {
+      font-size: 18PX;
+    }
+    .del-history {
+      display: flex;
+      font-size: 16PX;
+      line-height: 32PX;
+      color: rgb(129, 129, 129);
+      Image {
+        width: 28PX;
+        height: 28PX;
+        align-self: center;
+      }
+    }
+    .history-content {
+      .at-list__item {
+        padding-left: 5PX;
+        padding-right: 0;
+        border-bottom: 1PX solid rgb(218, 221, 223);
+      }
+    }
+  }
+}
