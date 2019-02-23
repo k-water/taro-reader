@@ -67,6 +67,18 @@ export default class BookInfoDetail extends Component {
   // bad
   onPageScroll(e) {
     const { scrollCount, windowHeight, bookAllChapters } = this.state
+    if (scrollCount === 2 && e.scrollTop > (windowHeight * (scrollCount - 1)) / 4) {
+      this.setState(
+        {
+          scrollCount: scrollCount + 1
+        },
+        () => {
+          this.setState({
+            bookChapters: bookAllChapters.slice(0, 10 * scrollCount)
+          })
+        }
+      )
+    }
     if (e.scrollTop > (windowHeight * (scrollCount - 1)) / 2) {
       this.setState(
         {
