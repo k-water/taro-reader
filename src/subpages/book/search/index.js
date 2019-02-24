@@ -112,7 +112,7 @@ export default class BookSearch extends Component {
       hasStoraged = Taro.getStorageSync('search-history-BOOK')
       if (hasStoraged) {
         hasStoraged = JSON.parse(hasStoraged)
-        if (hasStoraged.length > 5) {
+        if (hasStoraged.length >= 5) {
           hasStoraged.pop()
         }
       } else {

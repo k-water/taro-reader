@@ -15,13 +15,14 @@ export default class BookSearchResult extends Component {
     this.state = {
       books: [],
       isLoading: true,
-      pageStart: 1
+      pageStart: 1,
+      total: 0,
+      isFinished: false
     }
   }
 
   componentDidShow() {
     const { word } = this.$router.params
-    // const word = 'xx'
     Taro.setNavigationBarTitle({
       title: `跟"${word}"有关的书籍`
     })
@@ -36,7 +37,6 @@ export default class BookSearchResult extends Component {
       title: '加载中...'
     })
     const { word } = this.$router.params
-    // const word = 'xx'
     const getSearchResult = request({
       url: '/rapi/book/fuzzy-search',
       data: {
@@ -49,7 +49,9 @@ export default class BookSearchResult extends Component {
       .then(resList => {
         this.setState({
           books: resList[0].books,
-          isLoading: false
+          total: resList[0].total,
+          isLoading: false,
+          isFinished: resList[0].total < 10 ? true : false
         })
         Taro.hideLoading()
       })
@@ -86,7 +88,14 @@ export default class BookSearchResult extends Component {
   }
 
   onReachBottom() {
-    let { pageStart } = this.state
+    const { pageStart, total } = this.state
+    // 数据已取完
+    if (pageStart * 10 >= total) {
+      this.setState({
+        isFinished: true
+      })
+      return
+    }
     this.getSearchResult(pageStart * 10)
     this.setState({
       pageStart: pageStart + 1
@@ -94,7 +103,7 @@ export default class BookSearchResult extends Component {
   }
 
   render() {
-    const { books, isLoading } = this.state
+    const { books, isLoading, isFinished } = this.state
     if (!isLoading) {
       return (
         <View className='search-container'>
@@ -114,7 +123,7 @@ export default class BookSearchResult extends Component {
               })
             ) : (
               <AtDivider
-                content='没有更多书籍'
+                content='没有相关书籍'
                 fontColor='#2d8cf0'
                 lineColor='#2d8cf0'
                 customStyle={{
@@ -123,6 +132,12 @@ export default class BookSearchResult extends Component {
                 }}
               />
             )}
+
+            <View className='load-tips'>
+              {
+                isFinished ? '没有更多书籍' : '正在加载中...'
+              }
+            </View>
           </View>
         </View>
       )
