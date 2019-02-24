@@ -6,7 +6,8 @@ import './index.scss'
 
 export default class BookInfoDetail extends Component {
   config = {
-    navigationBarTitleText: ''
+    navigationBarTitleText: '',
+    onReachBottomDistance: 200
   }
 
   constructor() {
@@ -16,16 +17,11 @@ export default class BookInfoDetail extends Component {
       bookChapters: [],
       bookAllChapters: [],
       isLoading: true,
-      scrollCount: 2,
-      windowHeight: 0
+      scrollCount: 2
     }
   }
 
   componentDidMount() {
-    const res = Taro.getSystemInfoSync()
-    this.setState({
-      windowHeight: res.windowHeight
-    })
     this.getInitData()
   }
 
@@ -64,39 +60,24 @@ export default class BookInfoDetail extends Component {
     })
   }
 
-  // bad
-  onPageScroll(e) {
-    const { scrollCount, windowHeight, bookAllChapters } = this.state
-    if (scrollCount === 2 && e.scrollTop > (windowHeight * (scrollCount - 1)) / 4) {
-      this.setState(
-        {
-          scrollCount: scrollCount + 1
-        },
-        () => {
+  onReachBottom() {
+    const { scrollCount, bookAllChapters } = this.state
+    this.setState(
+      {
+        scrollCount: scrollCount + 1
+      },
+      () => {
+        if (scrollCount * 20 < bookAllChapters.length) {
           this.setState({
-            bookChapters: bookAllChapters.slice(0, 10 * scrollCount)
+            bookChapters: bookAllChapters.slice(0, 20 * scrollCount)
+          })
+        } else {
+          this.setState({
+            bookChapters: bookAllChapters
           })
         }
-      )
-    }
-    if (e.scrollTop > (windowHeight * (scrollCount - 1)) / 2) {
-      this.setState(
-        {
-          scrollCount: scrollCount + 1
-        },
-        () => {
-          if (scrollCount * 10 < bookAllChapters.length) {
-            this.setState({
-              bookChapters: bookAllChapters.slice(0, 10 * scrollCount)
-            })
-          } else {
-            this.setState({
-              bookChapters: bookAllChapters
-            })
-          }
-        }
-      )
-    }
+      }
+    )
   }
 
   render() {
