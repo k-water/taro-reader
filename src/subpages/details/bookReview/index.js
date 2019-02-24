@@ -167,9 +167,12 @@ export default class BookReview extends Component {
                 )
               })}
           </View>
-          <View className='load-more' onClick={this.getMoreComment}>
-            展开更多评论
-          </View>
+          {
+            reviewComment.commentCount &&
+            <View className='load-more' onClick={this.getMoreComment}>
+              展开更多评论
+            </View>
+          }
         </View>
       )
     }

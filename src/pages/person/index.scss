@@ -24,4 +24,10 @@ page {
       }
     }
   }
+  .person-item {
+    margin-top: 20PX;
+    .at-list__item {
+      padding: 15PX 10PX;
+    }
+  }
 }
