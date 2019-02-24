@@ -1,0 +1,128 @@
+.book-review {
+  // padding: 15PX;
+  .review-author {
+    display: flex;
+    margin: 15PX;
+    .author-avatar {
+      width: 50PX;
+      height: 50PX;
+      margin-right: 10PX;
+    }
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .author-name {
+        color: rgb(137, 142, 145);
+        font-size: 15PX;
+        margin-bottom: 5PX;
+      }
+      .author-rating {
+        color: rgb(179, 180, 182);
+        display: flex;
+        font-size: 14PX;
+        .at-rate {
+          margin-left: 3PX;
+          margin-top: 3PX;
+        }
+      }
+    }
+  }
+
+  .review-content {
+    margin: 15PX;
+    .content-title {
+      font-size: 18PX;
+      margin: 10PX 0;
+      color: black;
+    }
+    .content {
+      Text {
+        text-align: justify;
+        font-size: 16PX;
+        color: rgb(36, 36, 36);
+      }
+    }
+  }
+
+  .review-book {
+    display: flex;
+    padding: 15PX 20PX;
+    border-top: 1PX solid rgb(233, 233, 233);
+    border-bottom: 1PX solid rgb(233, 233, 233);
+    .book-cover {
+      Image {
+        width: 60PX;
+        height: 85PX;
+        border-radius: 3PX;
+        box-shadow: 1PX 1PX 1PX silver;
+      }
+    }
+    .book-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 20PX;
+    }
+    .book-name {
+      color: rgb(81, 83, 82);
+      font-size: 18PX;
+      margin-bottom: 5PX;
+    }
+    .book-author {
+      color: rgb(121, 121, 121);
+      font-size: 16PX;
+    }
+  }
+
+  .review-comment {
+    padding: 0 15PX 15PX 15PX;
+    .review-item {
+      display: flex;
+      margin-top: 10PX;
+    }
+    .comment-avatar {
+      width: 40PX;
+      height: 40PX;
+      padding: 10PX 10PX 10PX 0;
+      .at-avatar {
+        width: 40PX;
+        height: 40PX;
+      }
+    }
+    .comment-content {
+      padding-top: 10PX;
+      border-bottom: 1PX solid rgb(233, 233, 233);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      .comment-author {
+        display: flex;
+        justify-content: space-between;
+        .author-name {
+          color: rgb(175, 175, 175);
+          font-size: 13PX;
+        }
+        .author-time {
+          color: rgb(175, 175, 175);
+          font-size: 12PX;
+        }
+      }
+
+      .content {
+        margin: 10PX 10PX 10PX 0;
+        text-align: justify;
+        font-size: 14PX;
+      }
+    }
+  }
+  .load-more {
+    border-top: 1PX solid rgb(215, 215, 215);
+    background-color: #ffffff;
+    text-align: center;
+    height: 48PX;
+    line-height: 48PX;
+    font-size: 16PX;
+    color: rgb(24, 144, 255);
+  }
+}

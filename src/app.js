@@ -11,8 +11,7 @@ wx.cloud.init({
 class App extends Component {
   config = {
     pages: [
-      // 'subpages/book/searchResult/index',
-      // 'pages/book/index',
+      // 'subpages/details/bookReview/index',
       'pages/index/index',
       'pages/class/index',
       'pages/book/index',
@@ -26,7 +25,8 @@ class App extends Component {
           'booklistDetail/index',
           'rankingDetail/index',
           'bookDetail/index',
-          'bookInfo/index'
+          'bookInfo/index',
+          'bookReview/index'
         ]
       },
       {

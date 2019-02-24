@@ -189,6 +189,12 @@ export default class BookDetail extends Component {
     }
   }
 
+  jumpToReviewPage(reviewId) {
+    Taro.navigateTo({
+      url: `/subpages/details/bookReview/index?reviewId=${reviewId}`
+    })
+  }
+
   render() {
     const ImageUrl = 'http://statics.zhuishushenqi.com'
     const {
@@ -249,7 +255,11 @@ export default class BookDetail extends Component {
                 bookReview.map(item => {
                   const { author } = item
                   return (
-                    <View key={item._id} style={{ marginBottom: '10PX' }}>
+                    <View
+                      key={item._id}
+                      style={{ marginBottom: '10PX' }}
+                      onClick={this.jumpToReviewPage.bind(this, item._id)}
+                    >
                       <View className='review-info'>
                         <View className='info-left'>
                           <View className='info-avatar'>
