@@ -21,8 +21,7 @@ export default class Index extends Component {
 
   componentDidHide() {
     this.setState({
-      storeBooks: [],
-      isLoading: true
+      isLoading: false
     })
   }
 
@@ -42,9 +41,12 @@ export default class Index extends Component {
   }
 
   getStoreBooks() {
-    Taro.showLoading({
-      title: '加载中...'
-    })
+    const { isLoading } = this.state
+    if (isLoading) {
+      Taro.showLoading({
+        title: '加载中...'
+      })
+    }
     const self = this
     const userCertificate = Taro.getStorageSync('userCertificate')
     // eslint-disable-next-line no-undef

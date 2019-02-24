@@ -12,7 +12,8 @@ export default class Index extends Component {
   constructor() {
     super(...arguments)
     this.setState({
-      userInfo: {}
+      userInfo: {},
+      isLoading: true
     })
   }
 
@@ -35,32 +36,42 @@ export default class Index extends Component {
   }
 
   getUserInfo() {
-    const self = this
-    Taro.getUserInfo({
-      success(res) {
-        self.setState({
-          userInfo: res.userInfo
-        })
-      }
+    Taro.showLoading({
+      title: '加载中...'
     })
+    const self = this
+    Taro.getStorage({
+      key: 'userInfo'
+    })
+      .then(res => {
+        self.setState(
+          {
+            userInfo: JSON.parse(res.data),
+            isLoading: false
+          },
+          () => Taro.hideLoading()
+        )
+      })
+      .catch(err => {
+        throw err
+      })
   }
 
   render() {
-    const { userInfo } = this.state
-    return (
-      <View className='personal-container'>
-        <View className='personal-info'>
-          <View className='personal-name'>
-            <Text>{userInfo.nickName}</Text>
-          </View>
-          <View className='personal-avatar'>
-            <Image
-              mode='aspectFill'
-              src={userInfo.avatarUrl}
-            />
+    const { userInfo, isLoading } = this.state
+    if (!isLoading) {
+      return (
+        <View className='personal-container'>
+          <View className='personal-info'>
+            <View className='personal-name'>
+              <Text>{userInfo.nickName}</Text>
+            </View>
+            <View className='personal-avatar'>
+              <Image mode='aspectFill' src={userInfo.avatarUrl} />
+            </View>
           </View>
         </View>
-      </View>
-    )
+      )
+    }
   }
 }
