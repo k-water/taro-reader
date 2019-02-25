@@ -60,10 +60,49 @@ export default class BookRead extends Component {
       bookAllDirectory: getDirectory.chapters
     })
 
+
+    // 阅读记录
+    let historyChapter = Taro.getStorageSync('historyChapter')
+    let findBook = null
+    if (historyChapter) {
+      historyChapter = JSON.parse(historyChapter)
+      findBook = historyChapter.filter(item => item.bookId === bookId)
+      if (!findBook.length) {
+        historyChapter.push({
+          bookId,
+          currentChapter: this.state.currentIndex
+        })
+        Taro.setStorage({
+          key: 'historyChapter',
+          data: JSON.stringify(historyChapter)
+        })
+      } else {
+        this.setState({
+          currentIndex: findBook[0].currentChapter
+        })
+      }
+    } else {
+      let currentBook = [
+        {
+          bookId,
+          currentChapter: this.state.currentIndex
+        }
+      ]
+      Taro.setStorage({
+        key: 'historyChapter',
+        data: JSON.stringify(currentBook)
+      })
+    }
+
     const getChapterContent = await request({
       url: '/rapi/bookChapter',
       data: {
-        link: getDirectory.chapters[this.state.currentIndex].link
+        link:
+          getDirectory.chapters[
+            findBook && findBook.length
+              ? findBook[0].currentChapter
+              : this.state.currentIndex
+          ].link
       }
     })
     this.setState({
@@ -75,6 +114,7 @@ export default class BookRead extends Component {
 
   getChapterContent(index) {
     const { bookAllDirectory } = this.state
+    const { bookId } = this.$router.params
     if (index < 0 || index > bookAllDirectory.length) {
       return
     }
@@ -101,6 +141,27 @@ export default class BookRead extends Component {
       .catch(err => {
         throw err
       })
+    let cacheBook = Taro.getStorageSync('historyChapter')
+    if (cacheBook.length) {
+      cacheBook = JSON.parse(cacheBook)
+      let findBookIndex = cacheBook.findIndex(item => item.bookId === bookId)
+      if (~findBookIndex) {
+        cacheBook[findBookIndex].currentChapter = index
+      } else {
+        cacheBook.push({
+          bookId,
+          currentChapter: index
+        })
+      }
+      Taro.setStorage({
+        key: 'historyChapter',
+        data: JSON.stringify(cacheBook)
+      })
+        .then()
+        .catch(err => {
+          throw err
+        })
+    }
     Taro.hideLoading()
   }
 
