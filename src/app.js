@@ -12,9 +12,10 @@ class App extends Component {
   config = {
     pages: [
       // 'subpages/details/bookReview/index',
+      'pages/book/index',
       'pages/index/index',
       'pages/class/index',
-      'pages/book/index',
+      // 'pages/book/index',
       'pages/person/index'
     ],
     subpackages: [

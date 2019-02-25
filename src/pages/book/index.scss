@@ -13,6 +13,7 @@
     display: flex;
     flex-wrap: wrap;
     .book-info {
+      position: relative;
       width: calc(100% / 3);
       display: flex;
       align-items: center;
@@ -33,6 +34,65 @@
         font-size: 11PX;
         color: rgb(160, 164, 165);
       }
+      .book-label {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      .book-checkbox {
+        position: absolute;
+        right: 14PX;
+        bottom: 54PX;
+      }
+      checkbox .wx-checkbox-input {
+        border-radius: 50%;
+        width: 16PX;
+        height: 16PX;
+      }
+      checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+        border: none;
+        background: rgb(24, 144, 255);
+      }
+      checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
+        border-radius: 50%;
+        width: 16PX;
+        height: 16PX;
+        line-height: 16PX;
+        text-align: center;
+        font-size: 14PX;
+        color:#fff;
+        background: transparent;
+        transform:translate(-50%, -50%) scale(1);
+      }
+    }
+  }
+
+  .book-action {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10PX 0;
+    border-top: 1PX solid rgb(225, 227, 228);
+    background-color: rgb(250, 250, 250);
+    width: 100%;
+    View {
+      width: 40%;
+      border-radius: 20PX;
+      height: 38PX;
+      line-height: 38PX;
+      text-align: center;
+    }
+    Text {
+      font-size: 16PX;
+    }
+    .book-cancel {
+      background-color: #eeeeee;
+      color: #000;
+    }
+    .book-del {
+      background-color: rgb(236, 71, 72);
+      color: #fff;
     }
   }
 }
