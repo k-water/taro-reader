@@ -17,7 +17,8 @@ export default class BookDetail extends Component {
       bookReview: [],
       bookRecommend: [],
       isLoading: true,
-      bookStatus: false
+      bookStatus: false,
+      isLoadReviewFinish: false
     }
   }
 
@@ -71,6 +72,12 @@ export default class BookDetail extends Component {
         book: bookId
       }
     })
+    if (!res.reviews.length) {
+      this.setState({
+        isLoadReviewFinish: true
+      })
+      return
+    }
     const temp = this.state.bookReview.concat(res.reviews)
     this.setState({
       bookReview: temp
@@ -205,7 +212,8 @@ export default class BookDetail extends Component {
       bookReview,
       bookRecommend,
       isLoading,
-      bookStatus
+      bookStatus,
+      isLoadReviewFinish
     } = this.state
     if (!isLoading) {
       return (
@@ -325,9 +333,11 @@ export default class BookDetail extends Component {
                     </View>
                   )
                 })}
-              <View className='review-more' onClick={this.showMoreReview}>
-                展开更多点评
-              </View>
+              {bookReview.length >= 3 && !isLoadReviewFinish && (
+                <View className='review-more' onClick={this.showMoreReview}>
+                  展开更多点评
+                </View>
+              )}
             </View>
           </View>
           {/* 书籍推荐 */}

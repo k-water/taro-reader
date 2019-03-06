@@ -118,6 +118,12 @@ export default class Index extends Component {
     })
   }
 
+  jumpToBookList(bookListId) {
+    Taro.navigateTo({
+      url: `/subpages/details/booklistDetail/index?bookListId=${bookListId}`
+    })
+  }
+
   render() {
     const {
       swpierData: { spread, nodes, ranking },
@@ -149,7 +155,7 @@ export default class Index extends Component {
             >
               {spread &&
                 spread.map(item => (
-                  <SwiperItem key={item._id}>
+                  <SwiperItem key={item._id} onClick={this.jumpToBookList.bind(this, item.link)}>
                     <View className='swiper-pic'>
                       <Image
                         style={{ width: '100%', height: '220PX' }}
