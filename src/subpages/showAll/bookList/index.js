@@ -42,7 +42,7 @@ export default class BookListAll extends Component {
       currentLv1Tag: 0,
       currentLv2Tag: 0,
       currentDetailTagName: null,
-      isShow: false,
+      isShowFilter: false,
       isLoading: true,
       bookTags: [],
       bookList: []
@@ -122,19 +122,20 @@ export default class BookListAll extends Component {
   handleDetailTag(val) {
     this.setState({
       currentDetailTagName: val,
-      isShow: !this.state.isShow
+      isShowFilter: !this.state.isShowFilter
     })
-    tagLv2.splice(1, 1, val)
+    if (!tagLv2.includes(val)) {
+      tagLv2.splice(1, 1, val)
+    } else {
+      tagLv2.splice(tagLv2.indexOf(val), 1)
+      tagLv2.splice(1, 0, val)
+    }
     this.handleLv2Tag(1)
-    data = Object.assign(data, {
-      tag: val
-    })
-    this.getBookList(data)
   }
 
   showFilter = () => {
     this.setState({
-      isShow: !this.state.isShow
+      isShowFilter: !this.state.isShowFilter
     })
   }
 
@@ -148,7 +149,7 @@ export default class BookListAll extends Component {
     const {
       currentLv1Tag,
       currentLv2Tag,
-      isShow,
+      isShowFilter,
       isLoading,
       bookTags,
       currentDetailTagName,
@@ -171,7 +172,7 @@ export default class BookListAll extends Component {
           ))}
         </View>
         <View className='filter-lv2'>
-          {tagLv2.map((item, index) => (
+          {tagLv2.length === 4 && tagLv2.map((item, index) => (
             <AtTag
               key={item}
               name={item}
@@ -192,7 +193,10 @@ export default class BookListAll extends Component {
             筛选
           </AtTag>
         </View>
-        <View className='book-list'>
+        <View
+          className='book-list'
+          style={isShowFilter ? 'display: none' : 'display: block'}
+        >
           {!isLoading &&
             bookList &&
             bookList.map(item => (
@@ -203,7 +207,7 @@ export default class BookListAll extends Component {
               />
             ))}
         </View>
-        {isShow && (
+        {isShowFilter && (
           <View className='filter-all'>
             <View className='tag-list'>
               {bookTags.map(item => (
