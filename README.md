@@ -49,12 +49,13 @@ Taro是一个遵循React语法规范的多端开发的框架。自从其开源�
 * 搜索
 
 大大小小API大概有20+个，实现的功能基本与之相关。由于接口是`HTTP`的，所以通过自己的服务器做了一层`HTTPS`的代理，方便使用。后端项目为：[reader-api](https://github.com/k-water/reader-api)
+
 此项目并没有什么逻辑，只是对参数做了下简单的处理，通过`curl`发送请求拿到数据。
 
 ### 界面设计
 数据源解决了，下一步就是页面如何设计，UI怎么写等问题。对于一个不擅于设计的前端er来说，这方面还是稍微有一些阻滞的。一开始，通过[墨刀](https://modao.cc)画出了初始的原型图，在画原型图的过程中，脑中思考的是页面的布局和要实现的功能，对于UI方面，则到了实际代码开发中才实现。初始界面设计如图所示：
 
-[![kvG15n.md.gif](https://s2.ax1x.com/2019/03/06/kvG15n.md.gif)](https://imgchr.com/i/kvG15n)
+![showPage.gif](https://i.loli.net/2019/03/06/5c7f9cd19f203.gif)
 
 在实际开发中，页面UI和布局参考了微信读书，实现上可能没有那么精细，但也可以接受。
 
@@ -81,7 +82,7 @@ Taro是一个遵循React语法规范的多端开发的框架。自从其开源�
       │    ├─ icon
       │    └─ image
       ├─ subpages         ## 子包
-      └─ utils.js        ## 工具函数
+      └─ utils.js         ## 工具函数
 ├─ package.json
 ├─ project.config.json
 ├─ .editorconfig
@@ -116,7 +117,7 @@ Taro是一个遵循React语法规范的多端开发的框架。自从其开源�
 
 这样说可能有点抽象，看一张GIF展示图：
 
-[![kvYW4A.md.gif](https://s2.ax1x.com/2019/03/06/kvYW4A.md.gif)](https://imgchr.com/i/kvYW4A) 
+![show.gif](https://i.loli.net/2019/03/06/5c7f9c62d95b2.gif)
 
 
 > 由于个人开发者不能上传阅读类的小程序，再者这个小程序本就是来练手的，所以更多功能请下载使用。
