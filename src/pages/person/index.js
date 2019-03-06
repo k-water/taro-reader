@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
-// import { AtList, AtListItem } from 'taro-ui'
-// import bookIcon from '../../static/icon/book-search.png'
+import { AtList, AtListItem } from 'taro-ui'
+import bookIcon from '../../static/icon/book-search.png'
 import './index.scss'
 
 export default class Index extends Component {
@@ -59,7 +59,7 @@ export default class Index extends Component {
   }
 
   jumpToBookStore() {
-    Taro.navigateTo({
+    Taro.switchTab({
       url: '/pages/book/index'
     })
   }
@@ -77,7 +77,7 @@ export default class Index extends Component {
               <Image mode='aspectFill' src={userInfo.avatarUrl} />
             </View>
           </View>
-          {/* <View className='person-item'>
+          <View className='person-item'>
             <AtList>
               <AtListItem
                 title='我的书单'
@@ -86,7 +86,7 @@ export default class Index extends Component {
                 onClick={this.jumpToBookStore}
               />
             </AtList>
-          </View> */}
+          </View>
         </View>
       )
     }
