@@ -88,6 +88,7 @@ export default class Index extends Component {
   removeBook() {
     const { isSelected, isEdit } = this.state
     const self = this
+    const userCertificate = Taro.getStorageSync('userCertificate')
     if (isSelected.length) {
       Taro.showLoading({
         title: '移除中...'
@@ -98,7 +99,8 @@ export default class Index extends Component {
           .callFunction({
             name: 'delBook',
             data: {
-              bookId: item
+              bookId: item,
+              openid: JSON.parse(userCertificate).openid
             }
           })
           .then(() => {

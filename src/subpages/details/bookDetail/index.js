@@ -103,11 +103,13 @@ export default class BookDetail extends Component {
     const { bookId } = this.$router.params
     // const bookId = '5acf0f68e098180e008227b2'
     const self = this
+    const userCertificate = Taro.getStorageSync('userCertificate')
     wx.cloud
       .callFunction({
         name: 'findBook',
         data: {
-          bookId
+          bookId,
+          openid: JSON.parse(userCertificate).openid
         }
       })
       .then(res => {
@@ -169,7 +171,8 @@ export default class BookDetail extends Component {
           .callFunction({
             name: 'delBook',
             data: {
-              bookId: bookInfo._id
+              bookId: bookInfo._id,
+              openid: JSON.parse(userCertificate).openid
             }
           })
           .then(() => {
