@@ -15,7 +15,8 @@ export default class BookReview extends Component {
       isLoading: true,
       reviewInfo: {},
       reviewComment: [],
-      pageStart: 1
+      pageStart: 1,
+      loadReviewFinished: false
     }
   }
 
@@ -58,6 +59,9 @@ export default class BookReview extends Component {
     // const reviewId = '5af6d13a12a4aa747c58c159'
     const { pageStart, reviewComment } = this.state
     if (pageStart * 10 >= reviewComment.commentCount) {
+      this.setState({
+        loadReviewFinished: true
+      })
       return
     }
     request({
@@ -73,7 +77,7 @@ export default class BookReview extends Component {
         })
       })
       .catch(err => {
-        throw(err)
+        throw err
       })
   }
 
@@ -84,7 +88,12 @@ export default class BookReview extends Component {
   }
 
   render() {
-    const { isLoading, reviewInfo, reviewComment } = this.state
+    const {
+      isLoading,
+      reviewInfo,
+      reviewComment,
+      loadReviewFinished
+    } = this.state
     const baseImageUrl = 'http://statics.zhuishushenqi.com'
     if (!isLoading) {
       return (
@@ -144,7 +153,7 @@ export default class BookReview extends Component {
                           {item.author.nickname}
                         </View>
                         <View className='author-time'>
-                          {new Date(item.created).toLocaleDateString()}
+                          {item.created && item.created.substr(0, 10)}
                         </View>
                       </View>
                       <View className='content'>
@@ -167,12 +176,11 @@ export default class BookReview extends Component {
                 )
               })}
           </View>
-          {
-            reviewInfo.commentCount &&
+          {reviewInfo.commentCount > 10 && !loadReviewFinished && (
             <View className='load-more' onClick={this.getMoreComment}>
               展开更多评论
             </View>
-          }
+          )}
         </View>
       )
     }
