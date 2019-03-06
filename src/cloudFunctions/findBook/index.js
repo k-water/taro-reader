@@ -9,7 +9,8 @@ const db = cloud.database()
 exports.main = async (event) => new Promise((resolve, reject) => {
   try {
     db.collection('books').where({
-      bookId: event.bookId
+      bookId: event.bookId,
+      openid: event.openid
     }).get()
       .then(res => {
         resolve(res)
