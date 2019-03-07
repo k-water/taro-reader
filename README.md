@@ -12,7 +12,7 @@ git clone https://github.com/k-water/taro-reader
 npm install
 
 ## compile
-npm run dev
+npm run dev:weapp
 ```
 
 然后将`dist`文件夹导入微信开发者工具即可预览。
